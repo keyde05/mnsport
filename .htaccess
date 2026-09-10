@@ -1,0 +1,20 @@
+DirectoryIndex index.html
+
+RewriteEngine On
+# Local dev runs under /MNsport/ (e.g. localhost/MNsport/). On production at
+# the site's own domain root, change this to: RewriteBase /
+RewriteBase /MNsport/
+
+# Legacy shortcut → admin dashboard
+RewriteRule ^akses/?$ admin/ [R=301,L]
+
+# Legacy PHP page URLs → single-page sections (no PHP involved, pure redirect)
+# NE keeps the # as a literal fragment instead of percent-encoding it
+RewriteRule ^index\.php$ index.html [R=301,L]
+RewriteRule ^football\.php$ index.html#football [R=301,L,NE]
+RewriteRule ^casual\.php$ index.html#casual [R=301,L,NE]
+RewriteRule ^formal\.php$ index.html#formal [R=301,L,NE]
+RewriteRule ^products\.php$ index.html#products [R=301,L,NE]
+RewriteRule ^order\.php$ index.html#order [R=301,L,NE]
+RewriteRule ^about\.php$ index.html#about [R=301,L,NE]
+RewriteRule ^contact\.php$ index.html#contact [R=301,L,NE]

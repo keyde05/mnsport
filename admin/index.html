@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MN Sports Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" href="../logo/logo.jpg" type="image/jpeg">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d0d; --sb:#111111; --card:#1c1c1c; --card2:#232323;
+  --border:rgba(255,255,255,.08); --text:#e8e8e8; --muted:#777;
+  --accent:#e63012; --accent-h:#c42810; --green:#22c55e; --amber:#f59e0b;
+  --danger:#ef4444; --sb-w:240px; --hdr:60px;
+}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{cursor:pointer;font-family:inherit}
+[hidden]{display:none!important}
+
+/* SIDEBAR */
+.sidebar{width:var(--sb-w);min-height:100vh;background:var(--sb);border-right:1px solid var(--border);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:200;overflow-y:auto}
+.sb-logo{padding:1.25rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.65rem;flex-shrink:0}
+.sb-logo img{width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0}
+.sb-logo-txt{font-size:1rem;font-weight:900;letter-spacing:.04em;line-height:1.1}
+.sb-logo-txt span{color:var(--accent)}
+.sb-logo-sub{font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.sb-nav{flex:1;padding:.75rem 0}
+.sb-section{padding:.75rem 1.1rem .2rem;font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.sb-link{display:flex;align-items:center;gap:.65rem;padding:.6rem 1.1rem;color:var(--muted);font-size:.82rem;font-weight:500;transition:background .15s,color .15s;border-left:2px solid transparent;background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left}
+.sb-link:hover{background:rgba(255,255,255,.04);color:var(--text)}
+.sb-link.active{background:rgba(230,48,18,.1);color:var(--accent);border-left-color:var(--accent)}
+.sb-icon{font-size:.95rem;width:18px;text-align:center;flex-shrink:0}
+.sb-foot{padding:.85rem 1.1rem;border-top:1px solid var(--border);flex-shrink:0}
+.sb-user{display:flex;align-items:center;gap:.65rem;margin-bottom:.65rem}
+.sb-avatar{width:30px;height:30px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:#fff;flex-shrink:0}
+.sb-uname{font-size:.78rem;font-weight:700;line-height:1.2}
+.sb-urole{font-size:.65rem;color:var(--muted);text-transform:capitalize}
+.sb-logout{display:block;text-align:center;padding:.42rem;background:rgba(255,255,255,.05);border-radius:6px;color:var(--muted);font-size:.75rem;transition:background .15s,color .15s;width:100%;border:none}
+.sb-logout:hover{background:rgba(230,48,18,.15);color:var(--accent)}
+
+/* MAIN */
+.main{margin-left:var(--sb-w);flex:1;display:flex;flex-direction:column;min-height:100vh}
+.topbar{height:var(--hdr);background:var(--sb);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.5rem;position:sticky;top:0;z-index:100;gap:1rem}
+.topbar-title{font-size:1rem;font-weight:700;flex:1}
+.topbar-right{display:flex;align-items:center;gap:.75rem}
+.topbar-badge{font-size:.65rem;background:rgba(230,48,18,.15);color:var(--accent);padding:.2em .75em;border-radius:20px;font-weight:700}
+.content{padding:1.5rem;flex:1}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem}
+.sc-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
+.sc-val{font-size:2rem;font-weight:900;line-height:1;color:var(--text)}
+.sc-sub{font-size:.7rem;color:var(--muted);margin-top:.25rem}
+.stat-card.red .sc-val{color:var(--accent)}
+.stat-card.green .sc-val{color:var(--green)}
+.stat-card.amber .sc-val{color:var(--amber)}
+.stat-card.blue .sc-val{color:#60a5fa}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.card-hd{padding:.85rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem}
+.card-hd h3{font-size:.88rem;font-weight:700;flex:1}
+.card-body{padding:1.1rem}
+.two-col{display:grid;grid-template-columns:1.6fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.two-col-even{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.side-form{display:grid;grid-template-columns:1fr 360px;gap:1.25rem;align-items:start}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:.6rem .8rem;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody td{padding:.65rem .8rem;font-size:.82rem;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:rgba(255,255,255,.02)}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;font-size:.62rem;font-weight:700;letter-spacing:.04em;padding:.18em .65em;border-radius:20px}
+.bg-green{background:rgba(34,197,94,.12);color:var(--green)}
+.bg-red{background:rgba(230,48,18,.12);color:var(--accent)}
+.bg-amber{background:rgba(245,158,11,.12);color:var(--amber)}
+.bg-gray{background:rgba(255,255,255,.07);color:var(--muted)}
+.bg-blue{background:rgba(96,165,250,.12);color:#60a5fa}
+
+/* TOGGLE */
+.toggle{position:relative;display:inline-block;width:34px;height:18px}
+.toggle input{opacity:0;width:0;height:0}
+.tgl-sl{position:absolute;inset:0;background:rgba(255,255,255,.12);border-radius:18px;cursor:pointer;transition:background .2s}
+.tgl-sl::before{content:'';position:absolute;width:12px;height:12px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:transform .2s}
+.toggle input:checked+.tgl-sl{background:var(--green)}
+.toggle input:checked+.tgl-sl::before{transform:translateX(16px)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:.35rem;padding:.48rem .9rem;border-radius:7px;font-size:.78rem;font-weight:600;border:none;transition:opacity .15s,background .15s;white-space:nowrap}
+.btn:hover{opacity:.88}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-h);opacity:1}
+.btn-secondary{background:rgba(255,255,255,.08);color:var(--text)}
+.btn-secondary:hover{background:rgba(255,255,255,.14);opacity:1}
+.btn-danger{background:rgba(239,68,68,.12);color:#f87171}
+.btn-danger:hover{background:rgba(239,68,68,.22);opacity:1}
+.btn-sm{padding:.3rem .65rem;font-size:.72rem}
+.btn-xs{padding:.2rem .5rem;font-size:.68rem}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+
+/* FORMS */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.f-grp{display:flex;flex-direction:column;gap:.35rem}
+.f-grp.full{grid-column:1/-1}
+.f-grp label{font-size:.78rem;font-weight:600;color:var(--text)}
+.f-hint{font-size:.68rem;color:var(--muted)}
+input,select,textarea{background:var(--card2);border:1px solid var(--border);border-radius:7px;padding:.55rem .8rem;color:var(--text);font-size:.82rem;font-family:inherit;width:100%;transition:border-color .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+input[type="checkbox"]{width:auto}
+textarea{resize:vertical;min-height:75px}
+select option{background:#1c1c1c}
+.img-prev{width:100%;height:160px;object-fit:cover;border-radius:7px;border:1px solid var(--border);margin-bottom:.75rem}
+.chk-row{display:flex;align-items:center;gap:.65rem;cursor:pointer;font-size:.85rem}
+.chk-row input{width:16px;height:16px}
+
+/* FLASH */
+.flash{padding:.65rem .9rem;border-radius:7px;margin-bottom:1rem;font-size:.82rem;font-weight:500}
+.flash-ok{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.flash-err{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+#flashHost{position:fixed;top:1rem;right:1rem;z-index:900;display:flex;flex-direction:column;gap:.5rem;max-width:320px}
+#flashHost .flash{box-shadow:0 6px 20px rgba(0,0,0,.4);animation:flashIn .2s ease}
+@keyframes flashIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+
+/* TOOLBAR */
+.toolbar{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap}
+.toolbar .s-input{position:relative;flex:1;min-width:180px;max-width:300px}
+.toolbar .s-input input{padding-left:2rem}
+.toolbar .s-input::before{content:'🔍';position:absolute;left:.65rem;top:50%;transform:translateY(-50%);font-size:.75rem;pointer-events:none}
+.toolbar select{width:auto;min-width:130px}
+
+/* PAGE HEADER */
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;gap:1rem;flex-wrap:wrap}
+.ph h2{font-size:.95rem;font-weight:700}
+.p-thumb{width:44px;height:44px;object-fit:cover;border-radius:6px;border:1px solid var(--border);background:#333}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+.login-box{width:100%;max-width:360px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2.25rem}
+.login-logo{text-align:center;margin-bottom:1.75rem}
+.login-logo-txt{font-size:1.7rem;font-weight:900;letter-spacing:.04em}
+.login-logo-txt span{color:var(--accent)}
+.login-sub{font-size:.72rem;color:var(--muted);margin-top:.2rem}
+.login-box h2{font-size:.95rem;font-weight:700;margin-bottom:1.1rem}
+.login-hint{margin-top:1rem;font-size:.68rem;color:var(--muted);text-align:center;line-height:1.6}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--muted)}
+.empty-state p{font-size:.875rem;margin-top:.5rem}
+hr{border:none;border-top:1px solid var(--border);margin:1.25rem 0}
+code{font-size:.75rem;background:var(--card2);padding:.1em .4em;border-radius:4px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:flex-start;justify-content:center;padding:2.5rem 1rem;z-index:500;overflow-y:auto}
+.modal-box{background:var(--card);border:1px solid var(--border);border-radius:12px;width:100%;max-width:760px;max-height:calc(100vh - 5rem)}
+.modal-box.narrow{max-width:520px}
+.modal-hd{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem}
+.modal-hd h3{font-size:.95rem;font-weight:700;flex:1}
+.modal-body{padding:1.25rem;overflow-y:auto;max-height:calc(100vh - 10rem)}
+.modal-close{background:none;border:none;color:var(--muted);font-size:1.1rem;line-height:1}
+.modal-close:hover{color:var(--text)}
+
+/* CHART BARS */
+.bar-chart{display:flex;align-items:flex-end;gap:.6rem;height:150px;margin-bottom:.6rem}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:.25rem}
+.bar-val{font-size:.6rem;color:var(--muted);font-weight:700}
+.bar-fill{width:100%;background:linear-gradient(to top,var(--accent),rgba(230,48,18,.5));border-radius:4px 4px 0 0}
+.bar-labels{display:flex;gap:.6rem;border-top:1px solid var(--border);padding-top:.5rem}
+.bar-labels div{flex:1;text-align:center;font-size:.6rem;color:var(--muted)}
+.progress-track{background:var(--border);border-radius:4px;height:5px;overflow:hidden}
+.progress-fill{background:var(--accent);height:100%;border-radius:4px}
+
+@media(max-width:900px){.form-grid{grid-template-columns:1fr}.stat-grid{grid-template-columns:repeat(2,1fr)}.two-col,.two-col-even,.side-form{grid-template-columns:1fr}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%);transition:transform .25s}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.topbar{padding:0 1rem}}
+</style>
+</head>
+<body>
+
+<div id="flashHost"></div>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="login-wrap">
+  <div class="login-box">
+    <div class="login-logo">
+      <img src="../logo/logo.jpg" alt="MN Sports" style="width:52px;height:52px;border-radius:12px;object-fit:cover;margin:0 auto .75rem">
+      <div class="login-logo-txt">MN<span>SPORTS</span></div>
+      <div class="login-sub">Admin Panel</div>
+    </div>
+    <h2>Log Masuk</h2>
+    <div id="loginError"></div>
+    <form id="loginForm" style="display:flex;flex-direction:column;gap:.85rem">
+      <div class="f-grp">
+        <label>Username / Email</label>
+        <input type="text" id="loginUser" placeholder="Masukkan username" required autofocus>
+      </div>
+      <div class="f-grp">
+        <label>Password</label>
+        <input type="password" id="loginPass" placeholder="Masukkan password" required>
+      </div>
+      <button type="submit" class="btn btn-primary" style="margin-top:.25rem;justify-content:center;padding:.65rem">Log Masuk →</button>
+    </form>
+    <div class="login-hint">Default: <strong>admin</strong> / <strong>admin123</strong><br>Dashboard ini simpan data dalam browser (localStorage) — tiada server/database.</div>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div id="app" hidden style="display:flex">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">
+      <img src="../logo/logo.jpg" alt="MN Sports">
+      <div>
+        <div class="sb-logo-txt">MN<span>SPORTS</span></div>
+        <div class="sb-logo-sub">Admin Panel</div>
+      </div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-section">Utama</div>
+      <button class="sb-link" data-page="dashboard"><span class="sb-icon">📊</span> Dashboard</button>
+      <div class="sb-section">Katalog</div>
+      <button class="sb-link" data-page="products"><span class="sb-icon">👕</span> Produk</button>
+      <button class="sb-link" data-page="categories"><span class="sb-icon">📂</span> Kategori</button>
+      <div class="sb-section">Pesanan</div>
+      <button class="sb-link" data-page="orders"><span class="sb-icon">📋</span> Pesanan Masuk</button>
+      <div class="sb-section">Sistem</div>
+      <button class="sb-link" data-page="settings"><span class="sb-icon">⚙️</span> Tetapan</button>
+      <button class="sb-link" data-page="users" id="navUsers"><span class="sb-icon">👥</span> Pengguna</button>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-user">
+        <div class="sb-avatar" id="sbAvatar">A</div>
+        <div>
+          <div class="sb-uname" id="sbUname">—</div>
+          <div class="sb-urole" id="sbUrole">—</div>
+        </div>
+      </div>
+      <button class="sb-logout" id="btnLogout">⏻ Log Keluar</button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div>
+        <div class="topbar-title" id="pageTitle">Dashboard</div>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-badge" id="topRole">admin</span>
+        <a href="../index.php" target="_blank" style="font-size:.75rem;color:var(--muted)">Lihat Laman ↗</a>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- DASHBOARD PAGE -->
+      <section id="page-dashboard">
+        <div class="stat-grid" id="statGridMain"></div>
+        <div class="stat-grid" id="statGridFinance" style="margin-bottom:1.5rem"></div>
+        <div class="two-col">
+          <div class="card">
+            <div class="card-hd"><h3>📈 Trend Helai Pesanan (6 Bulan)</h3></div>
+            <div class="card-body" id="trendChart"></div>
+          </div>
+          <div class="card">
+            <div class="card-hd"><h3>📊 Ringkasan Status</h3></div>
+            <div class="card-body" id="statusBreakdown" style="display:flex;flex-direction:column;gap:.55rem"></div>
+          </div>
+        </div>
+        <div class="two-col-even">
+          <div class="card">
+            <div class="card-hd" id="catOrdersTitle"><h3>👕 Pesanan Mengikut Kategori</h3></div>
+            <div class="card-body" id="catOrdersBody" style="display:flex;flex-direction:column;gap:.8rem"></div>
+          </div>
+          <div class="card">
+            <div class="card-hd"><h3>⚙️ Info Tetapan</h3></div>
+            <div class="card-body" id="settingsInfo" style="display:flex;flex-direction:column;gap:.65rem"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><h3>🕒 Produk Terkini</h3><button class="btn btn-secondary btn-sm" data-page="products">Lihat Semua</button></div>
+          <div class="tbl-wrap"><table><thead><tr><th>Gambar</th><th>Nama Produk</th><th>Kategori</th><th>Harga</th><th>Status</th><th>Featured</th></tr></thead><tbody id="recentProductsBody"></tbody></table></div>
+        </div>
+      </section>
+
+      <!-- PRODUCTS PAGE -->
+      <section id="page-products" hidden>
+        <div class="ph"><h2 id="productsCount">Semua Produk</h2><button class="btn btn-primary" id="btnAddProduct">＋ Tambah Produk</button></div>
+        <div class="toolbar">
+          <div class="s-input"><input type="text" id="prodSearch" placeholder="Cari nama, design, kod..."></div>
+          <select id="prodCatFilter"><option value="">Semua Kategori</option></select>
+          <button class="btn btn-secondary" id="btnProdReset">Reset</button>
+        </div>
+        <div class="card"><div class="tbl-wrap"><table>
+          <thead><tr><th style="width:52px">Gambar</th><th>Produk</th><th>Kategori</th><th>Harga</th><th>Aktif</th><th>Featured</th><th>Tindakan</th></tr></thead>
+          <tbody id="productsBody"></tbody>
+        </table></div></div>
+      </section>
+
+      <!-- CATEGORIES PAGE -->
+      <section id="page-categories" hidden>
+        <div class="side-form">
+          <div class="card">
+            <div class="card-hd"><h3 id="categoriesCount">Semua Kategori</h3></div>
+            <div class="tbl-wrap"><table>
+              <thead><tr><th>Ikon</th><th>Nama</th><th>Slug</th><th>Produk</th><th>Susunan</th><th>Aktif</th><th>Tindakan</th></tr></thead>
+              <tbody id="categoriesBody"></tbody>
+            </table></div>
+          </div>
+          <div class="card">
+            <div class="card-hd"><h3 id="catFormTitle">＋ Tambah Kategori</h3><button class="btn btn-secondary btn-sm" id="btnCatCancel" hidden>Batal</button></div>
+            <div class="card-body">
+              <form id="catForm" style="display:flex;flex-direction:column;gap:.75rem">
+                <input type="hidden" id="catId">
+                <div class="f-grp"><label>Nama Kategori *</label><input type="text" id="catName" placeholder="cth: Football" required></div>
+                <div class="f-grp"><label>Slug</label><input type="text" id="catSlug" placeholder="auto-jana jika kosong"><span class="f-hint">Digunakan dalam URL</span></div>
+                <div class="f-grp"><label>Ikon (Emoji)</label><input type="text" id="catIcon" placeholder="⚽"></div>
+                <div class="f-grp"><label>Susunan</label><input type="number" id="catSort" value="0" min="0"></div>
+                <label class="chk-row"><input type="checkbox" id="catActive" checked><span>Aktif</span></label>
+                <button type="submit" class="btn btn-primary" style="justify-content:center;margin-top:.25rem" id="catSubmitBtn">＋ Tambah</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ORDERS PAGE -->
+      <section id="page-orders" hidden>
+        <div class="ph"><h2 id="ordersCount">Pesanan</h2></div>
+        <div class="toolbar">
+          <div class="s-input"><input type="text" id="orderSearch" placeholder="Cari nama, telefon, pasukan..."></div>
+          <select id="orderStatusFilter">
+            <option value="">Semua Status</option>
+            <option value="baru">Baru</option><option value="dihubungi">Dihubungi</option>
+            <option value="proses">Dalam Proses</option><option value="siap">Siap</option><option value="batal">Batal</option>
+          </select>
+          <button class="btn btn-secondary" id="btnOrderReset">Reset</button>
+        </div>
+        <div class="card"><div class="tbl-wrap"><table>
+          <thead><tr><th>#</th><th>Pelanggan</th><th>Kategori</th><th>Design</th><th>Helai</th><th>Status</th><th>Tarikh</th><th>Tindakan</th></tr></thead>
+          <tbody id="ordersBody"></tbody>
+        </table></div></div>
+      </section>
+
+      <!-- SETTINGS PAGE -->
+      <section id="page-settings" hidden>
+        <form id="settingsForm">
+          <div class="two-col-even">
+            <div class="card">
+              <div class="card-hd"><h3>💬 WhatsApp</h3></div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:.75rem">
+                <div class="f-grp"><label>Nombor WA (tanpa +)</label><input type="text" id="s_wa_num" placeholder="601XXXXXXXX"><span class="f-hint">Contoh: 60123456789</span></div>
+                <div class="f-grp"><label>Nombor Paparan</label><input type="text" id="s_wa_display" placeholder="+60 12-345 6789"></div>
+                <div style="background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:.75rem;font-size:.78rem;line-height:1.6">
+                  <strong>Link WA akan jadi:</strong><br><code id="waPreview" style="color:var(--green);background:none">https://wa.me/</code>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-hd"><h3>🏢 Maklumat Syarikat</h3></div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:.75rem">
+                <div class="f-grp"><label>Nama Syarikat</label><input type="text" id="s_site_name"></div>
+                <div class="f-grp"><label>Email</label><input type="email" id="s_site_email"></div>
+                <div class="f-grp"><label>Minimum Order (helai)</label><input type="number" id="s_min_order" min="1"></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-hd"><h3>📱 Media Sosial</h3></div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:.75rem">
+                <div class="f-grp"><label>Instagram URL</label><input type="url" id="s_site_ig"></div>
+                <div class="f-grp"><label>Facebook URL</label><input type="url" id="s_site_fb"></div>
+                <div class="f-grp"><label>TikTok URL</label><input type="url" id="s_site_tt"></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-hd"><h3>🖼 Hero / Banner Utama</h3></div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:.75rem">
+                <div class="f-grp"><label>Tagline Utama</label><input type="text" id="s_hero_tagline"></div>
+                <div class="f-grp"><label>Sub Tagline</label><input type="text" id="s_hero_sub"></div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:1.25rem;display:flex;justify-content:flex-end">
+            <button type="submit" class="btn btn-primary" style="padding:.65rem 2rem">💾 Simpan Semua Tetapan</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- USERS PAGE -->
+      <section id="page-users" hidden>
+        <div class="side-form">
+          <div class="card">
+            <div class="card-hd"><h3 id="usersCount">Semua Pengguna</h3></div>
+            <div class="tbl-wrap"><table>
+              <thead><tr><th>Username</th><th>Email</th><th>Peranan</th><th>Aktif</th><th>Tindakan</th></tr></thead>
+              <tbody id="usersBody"></tbody>
+            </table></div>
+          </div>
+          <div class="card">
+            <div class="card-hd"><h3 id="userFormTitle">＋ Tambah Pengguna</h3><button class="btn btn-secondary btn-sm" id="btnUserCancel" hidden>Batal</button></div>
+            <div class="card-body">
+              <form id="userForm" style="display:flex;flex-direction:column;gap:.75rem">
+                <input type="hidden" id="userId">
+                <div class="f-grp"><label>Username *</label><input type="text" id="userUsername" required></div>
+                <div class="f-grp"><label>Email *</label><input type="email" id="userEmail" required></div>
+                <div class="f-grp"><label id="userPassLabel">Password (min. 8 aksara)</label><input type="password" id="userPassword" placeholder="Password baru"></div>
+                <div class="f-grp"><label>Peranan</label><select id="userRole"><option value="admin">Admin</option><option value="superadmin">👑 Superadmin</option></select></div>
+                <label class="chk-row"><input type="checkbox" id="userActive" checked><span>Aktif</span></label>
+                <button type="submit" class="btn btn-primary" style="justify-content:center;margin-top:.25rem" id="userSubmitBtn">＋ Tambah Pengguna</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div id="productModal" class="modal-overlay" hidden>
+  <div class="modal-box">
+    <div class="modal-hd"><h3 id="productModalTitle">Tambah Produk</h3><button class="modal-close" data-close-modal="productModal">✕</button></div>
+    <div class="modal-body">
+      <form id="productForm">
+        <input type="hidden" id="p_id">
+        <div style="display:grid;grid-template-columns:1fr 260px;gap:1.25rem;align-items:start">
+          <div style="display:flex;flex-direction:column;gap:1rem">
+            <div class="form-grid">
+              <div class="f-grp full"><label>Nama Produk *</label><input type="text" id="p_name" required placeholder="cth: Classic Polo Pro"></div>
+              <div class="f-grp"><label>Kod Produk</label><input type="text" id="p_code" placeholder="cth: p000"></div>
+              <div class="f-grp"><label>Nama Design</label><input type="text" id="p_design" placeholder="cth: Design #000"></div>
+              <div class="f-grp"><label>Harga (RM) / helai *</label><input type="number" id="p_price" min="0" step="0.01" value="0"></div>
+              <div class="f-grp"><label>Warna Tersedia</label><input type="text" id="p_colors" placeholder="cth: Hitam / Merah"></div>
+              <div class="f-grp full"><label>Deskripsi</label><textarea id="p_description" rows="3"></textarea></div>
+              <div class="f-grp"><label>Teks Badge</label><input type="text" id="p_badge" placeholder="cth: Popular / New"></div>
+              <div class="f-grp"><label>Kelas Badge</label><select id="p_badge_class"><option value="">Default</option><option value="dark">Dark</option><option value="gold">Gold</option></select></div>
+              <div class="f-grp"><label>Kategori</label><select id="p_category_id"><option value="">— Tiada —</option></select></div>
+              <div class="f-grp"><label>Susunan</label><input type="number" id="p_sort_order" min="0" value="0"></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:1rem">
+            <div>
+              <div id="p_imgPreview" style="width:100%;height:120px;background:var(--card2);border-radius:7px;border:1px dashed var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.8rem;margin-bottom:.75rem;overflow:hidden">Tiada gambar</div>
+              <div class="f-grp"><label>Muat Naik Gambar</label><input type="file" id="p_image" accept="image/jpeg,image/png,image/webp"><span class="f-hint">JPG/PNG/WebP. Disimpan dalam browser.</span></div>
+            </div>
+            <label class="chk-row"><input type="checkbox" id="p_active" checked><span>Aktif (dipapar di laman)</span></label>
+            <label class="chk-row"><input type="checkbox" id="p_featured"><span>Featured (halaman utama)</span></label>
+          </div>
+        </div>
+        <div style="display:flex;gap:.75rem;margin-top:1.25rem">
+          <button type="button" class="btn btn-secondary" style="flex:1;justify-content:center" data-close-modal="productModal">Batal</button>
+          <button type="submit" class="btn btn-primary" style="flex:2;justify-content:center" id="productSubmitBtn">＋ Tambah Produk</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER DETAIL MODAL -->
+<div id="orderModal" class="modal-overlay" hidden>
+  <div class="modal-box narrow">
+    <div class="modal-hd"><h3 id="orderModalTitle">Detail Pesanan</h3><button class="modal-close" data-close-modal="orderModal">✕</button></div>
+    <div class="modal-body" id="orderModalBody"></div>
+  </div>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

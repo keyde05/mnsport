@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MN Sports — Premium Custom Sports Jersey Malaysia. Jersi sublimasi berkualiti untuk Football, Casual & Formal.">
+<title>MN Sports — Premium Custom Jersey Malaysia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<link rel="icon" href="logo/logo.jpg" type="image/jpeg">
+<style>
+/* ═══════════════════════════════════════════════════
+   MN SPORTS — PREMIUM CUSTOM JERSEY WEBSITE
+   Nike-inspired dark theme with full animations
+═══════════════════════════════════════════════════ */
+
+/* ── VARIABLES ── */
+:root {
+  --black:    #0a0a0a;
+  --dark:     #111111;
+  --dark2:    #191919;
+  --dark3:    #242424;
+  --gray:     #888;
+  --gray-lt:  #bbb;
+  --white:    #ffffff;
+  --off:      #f5f5f5;
+  --red:      #e63012;
+  --red-dk:   #c02810;
+  --red-glow: rgba(230,48,18,0.25);
+  --wa:       #25d366;
+  --gold:     #ffd700;
+
+  --fh: 'Bebas Neue', cursive;
+  --fb: 'Inter', sans-serif;
+
+  --nav-h: 68px;
+  --max:   1240px;
+  --r:     14px;
+  --ease:  cubic-bezier(0.16,1,0.3,1);
+  --ease2: cubic-bezier(0.87,0,0.13,1);
+}
+
+/* ── RESET ── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  font-family: var(--fb);
+  background: var(--white);
+  color: var(--dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body.is-loading { overflow:hidden; }
+body.menu-open  { overflow:hidden; }
+img { max-width:100%; display:block; object-fit:cover; }
+a   { text-decoration:none; color:inherit; }
+ul  { list-style:none; }
+button { cursor:pointer; border:none; background:none; font-family:var(--fb); }
+input, select, textarea { font-family:var(--fb); }
+*:focus-visible { outline:2px solid var(--red); outline-offset:3px; }
+[hidden] { display:none!important; }
+
+/* ── PRELOADER ── */
+#preloader {
+  position: fixed; inset:0; z-index:9999;
+  background: var(--black);
+  display: flex; align-items:center; justify-content:center;
+  transition: opacity 0.6s var(--ease), visibility 0.6s;
+}
+#preloader.done { opacity:0; visibility:hidden; }
+.pl-wrap { text-align:center; width:260px; }
+.pl-logo-img { width:80px; height:80px; border-radius:50%; margin:0 auto 1rem; animation:plPulse 1.4s ease-in-out infinite; }
+.pl-logo {
+  font-family: var(--fh);
+  font-size: 3rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  margin-bottom: 28px;
+  animation: plPulse 1.4s ease-in-out infinite;
+}
+.pl-logo span { color:var(--red); }
+@keyframes plPulse {
+  0%,100% { opacity:1; }
+  50%      { opacity:0.5; }
+}
+.pl-track {
+  height:3px; background:var(--dark3); border-radius:999px;
+  overflow:hidden; margin-bottom:12px;
+}
+.pl-fill {
+  height:100%; background:var(--red); width:0%;
+  border-radius:999px;
+  transition: width 0.12s linear;
+}
+.pl-pct { font-size:.8rem; color:var(--gray); letter-spacing:.15em; }
+
+/* ── CUSTOM CURSOR (desktop only) ── */
+@media (hover:hover) {
+  #cDot, #cRing {
+    position: fixed; border-radius:50%; pointer-events:none;
+    z-index: 9000; transition: opacity 0.3s;
+  }
+  #cDot {
+    width:8px; height:8px; background:var(--red);
+    top:0; left:0; transform:translate(-50%,-50%);
+  }
+  #cRing {
+    width:34px; height:34px;
+    border:1.5px solid rgba(255,255,255,0.5);
+    top:0; left:0; transform:translate(-50%,-50%);
+    transition: width .25s var(--ease), height .25s var(--ease), border-color .25s;
+  }
+  #cRing.hovered { width:50px; height:50px; border-color:var(--red); }
+}
+
+/* ── NAVBAR ── */
+#navbar {
+  position: fixed; top:0; left:0; right:0;
+  z-index: 1000; height: var(--nav-h);
+  transition: background .4s, box-shadow .4s;
+}
+#navbar.scrolled {
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+}
+.nav-inner {
+  max-width: var(--max); margin:0 auto;
+  padding:0 1.5rem; height:100%;
+  display:flex; align-items:center; gap:2rem;
+}
+.nav-logo {
+  font-family: var(--fh); font-size:1.6rem;
+  letter-spacing:.06em; color:var(--white);
+  flex-shrink:0; white-space:nowrap;
+}
+.nav-logo { display:flex; align-items:center; gap:.5rem; }
+.nav-logo span { color:var(--red); }
+.logo-img { width:36px; height:36px; border-radius:50%; object-fit:cover; flex-shrink:0; }
+.logo-txt { font-family:var(--fh); font-size:1.5rem; letter-spacing:.06em; color:var(--white); }
+.logo-txt span { color:var(--red); }
+.footer-logo-wrap { display:flex; align-items:center; gap:.7rem; margin-bottom:.8rem; }
+.footer-logo-wrap .logo-img { width:44px; height:44px; }
+.nav-links {
+  display:flex; gap:1.8rem;
+  margin:0 auto;
+}
+.nav-links a {
+  font-size:.82rem; font-weight:500; letter-spacing:.1em;
+  text-transform:uppercase; color:rgba(255,255,255,0.7);
+  position:relative; transition:color .25s;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px;
+  background:var(--red); border-radius:2px;
+  transition: width .3s var(--ease);
+}
+.nav-links a:hover       { color:var(--white); }
+.nav-links a:hover::after{ width:100%; }
+.nav-end { display:flex; align-items:center; gap:1rem; }
+
+/* Cart button */
+.cart-btn {
+  position:relative; color:var(--white);
+  width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+  border-radius:50%; transition:background .25s;
+}
+.cart-btn:hover { background:rgba(255,255,255,0.08); }
+.cart-count {
+  position:absolute; top:-2px; right:-2px;
+  background:var(--red); color:#fff;
+  font-size:.6rem; font-weight:700;
+  width:16px; height:16px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; transform:scale(0);
+  transition: opacity .2s, transform .2s;
+}
+.cart-count.show { opacity:1; transform:scale(1); }
+
+.btn-nav {
+  background:var(--red); color:#fff;
+  padding:.5rem 1.2rem; border-radius:4px;
+  font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  transition: background .25s, transform .2s;
+  white-space:nowrap;
+}
+.btn-nav:hover { background:var(--red-dk); transform:translateY(-1px); }
+
+/* Hamburger */
+.burger { display:none; align-items:center; justify-content:center; width:44px; height:44px; padding:8px; }
+.burger-svg { display:block; overflow:visible; }
+.bl1,.bl2,.bl3 { transform-box:fill-box; transform-origin:center; transition:transform .35s ease,opacity .3s ease; }
+body.menu-open .bl1 { transform:translateY(8.5px) rotate(45deg); }
+body.menu-open .bl2 { opacity:0; }
+body.menu-open .bl3 { transform:translateY(-8.5px) rotate(-45deg); }
+
+/* ── MOBILE MENU ── */
+.mob-menu {
+  position:fixed; inset:0; z-index:999;
+  background:var(--black);
+  display:flex; align-items:center; justify-content:center;
+  transform:translateX(100%);
+  transition:transform .45s var(--ease);
+}
+.mob-menu.open { transform:translateX(0); }
+.mob-menu ul { text-align:center; }
+.mob-menu li { margin:.8rem 0; }
+.mob-lnk {
+  font-family:var(--fh); font-size:2.4rem;
+  letter-spacing:.04em; color:var(--white);
+  display:block; transition:color .2s;
+}
+.mob-lnk:hover { color:var(--red); }
+.mob-cta {
+  color:var(--red); margin-top:1rem;
+  border:2px solid var(--red); padding:.3rem 1.5rem; border-radius:4px;
+  transition: background .2s, color .2s !important;
+}
+.mob-cta:hover { background:var(--red); color:#fff !important; }
+
+/* ── HERO ── */
+.hero {
+  position:relative; height:100vh; min-height:600px;
+  background:var(--black); overflow:hidden;
+  display:flex; align-items:center;
+}
+#heroCanvas {
+  position:absolute; inset:0; width:100%; height:100%;
+  opacity:.6;
+}
+.hero::after {
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(230,48,18,.18) 0%, transparent 60%),
+              linear-gradient(to right, rgba(0,0,0,.7) 0%, transparent 70%);
+}
+.hero-content {
+  position:relative; z-index:2;
+  max-width: var(--max); margin:0 auto; padding:0 1.5rem;
+  padding-top: var(--nav-h);
+}
+.hero-tag {
+  font-size:.75rem; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:rgba(255,255,255,0.55);
+  margin-bottom:1.2rem;
+}
+.hero-h1 { display:flex; flex-direction:column; overflow:hidden; }
+.hl {
+  font-family:var(--fh);
+  font-size: clamp(5rem, 13vw, 11rem);
+  line-height:.92; letter-spacing:.01em;
+  color:var(--white); display:block;
+}
+.hl.accent { color:var(--red); }
+.hero-sub {
+  max-width:480px; margin-top:1.4rem;
+  font-size:1rem; line-height:1.65;
+  color:rgba(255,255,255,0.6);
+}
+.hero-cta { display:flex; gap:1rem; margin-top:2rem; flex-wrap:wrap; }
+
+/* Buttons */
+.btn-primary {
+  display:inline-flex; align-items:center; gap:.5rem;
+  background:var(--red); color:#fff;
+  padding:.85rem 2.2rem; border-radius:4px;
+  font-size:.85rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  position:relative; overflow:hidden;
+  transition: transform .2s, box-shadow .3s;
+}
+.btn-primary::before {
+  content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);
+  transition:left .5s;
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 30px var(--red-glow); }
+.btn-primary:hover::before { left:100%; }
+
+.btn-ghost {
+  display:inline-flex; align-items:center; gap:.4rem;
+  border:1.5px solid rgba(255,255,255,.3); color:var(--white);
+  padding:.85rem 2rem; border-radius:4px;
+  font-size:.85rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  transition: border-color .25s, background .25s;
+}
+.btn-ghost:hover { border-color:var(--white); background:rgba(255,255,255,.07); }
+.btn-ghost span { transition:transform .25s; }
+.btn-ghost:hover span { transform:translateX(4px); }
+
+/* Hero stats */
+.hero-stats { display:flex; align-items:center; gap:1.5rem; margin-top:3rem; }
+.hs-div { width:1px; height:36px; background:rgba(255,255,255,.15); }
+.hs-n {
+  font-family:var(--fh); font-size:2rem;
+  color:var(--white); letter-spacing:.02em;
+}
+.hs-l { font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gray); margin-top:2px; }
+
+/* Scroll hint */
+.hero-scroll {
+  position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+  z-index:2; display:flex; flex-direction:column; align-items:center; gap:.5rem;
+}
+.hero-scroll span { font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gray); }
+.scroll-mouse {
+  width:22px; height:34px; border:1.5px solid rgba(255,255,255,.25);
+  border-radius:12px; display:flex; justify-content:center; padding-top:5px;
+}
+.scroll-wheel {
+  width:3px; height:6px; background:var(--white); border-radius:2px;
+  animation:scrollWheel 1.6s ease-in-out infinite;
+}
+@keyframes scrollWheel {
+  0%   { transform:translateY(0); opacity:1; }
+  80%  { transform:translateY(10px); opacity:0; }
+  100% { transform:translateY(0); opacity:0; }
+}
+
+/* ── MARQUEE ── */
+.marquee-band {
+  background:var(--red); overflow:hidden;
+  padding:.75rem 0; user-select:none;
+}
+.mq-track {
+  display:inline-flex; gap:1.8rem; white-space:nowrap;
+  animation: marquee 22s linear infinite;
+  font-family:var(--fh); font-size:1rem; letter-spacing:.1em; color:#fff;
+}
+.mq-track .mx { opacity:.5; }
+@keyframes marquee {
+  from { transform:translateX(0); }
+  to   { transform:translateX(-50%); }
+}
+.marquee-band:hover .mq-track { animation-play-state:paused; }
+
+/* ── CONTAINERS & SECTIONS ── */
+.container { max-width:var(--max); margin:0 auto; padding:0 1.5rem; }
+.s-hd { text-align:center; margin-bottom:3rem; }
+.s-tag {
+  display:inline-block; font-size:.7rem; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--red); margin-bottom:.8rem;
+  border:1px solid transparent; border-radius:20px; padding:.2em .8em;
+}
+.s-tag.light { color:rgba(255,255,255,.6); }
+.s-title {
+  font-family:var(--fh); font-size:clamp(2.4rem, 5vw, 4rem);
+  letter-spacing:.02em; color:var(--dark); line-height:1;
+  margin-bottom:.8rem;
+}
+.s-sub { font-size:.95rem; color:var(--gray); max-width:500px; margin:0 auto; line-height:1.7; }
+
+/* ── PRODUCTS SECTION ── */
+.s-products { padding:6rem 0 5rem; background:var(--off); }
+
+.filter-row {
+  display:flex; gap:.7rem; margin-bottom:2.5rem; flex-wrap:wrap;
+}
+.f-btn {
+  padding:.55rem 1.4rem; border-radius:999px;
+  font-size:.78rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  border:1.5px solid #ddd; color:var(--gray);
+  transition:all .25s;
+}
+.f-btn:hover  { border-color:var(--dark); color:var(--dark); }
+.f-btn.active { background:var(--dark); color:#fff; border-color:var(--dark); }
+
+.products-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(290px, 1fr));
+  gap:1.5rem;
+}
+
+/* PRODUCT CARD */
+.p-card {
+  background:#fff; border-radius:var(--r); overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease), opacity .3s;
+  cursor:pointer; position:relative;
+}
+.p-card:hover {
+  transform:translateY(-8px);
+  box-shadow:0 20px 50px rgba(0,0,0,.12);
+}
+.p-card.hidden { display:none; }
+.p-img-wrap {
+  position:relative; aspect-ratio:1; overflow:hidden;
+  background:var(--dark2);
+}
+.p-img-wrap img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .5s var(--ease);
+}
+.p-card:hover .p-img-wrap img { transform:scale(1.07); }
+.p-badge {
+  position:absolute; top:.8rem; left:.8rem;
+  background:var(--red); color:#fff;
+  font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:.25rem .65rem; border-radius:3px;
+}
+.p-badge.gold   { background:var(--gold); color:var(--dark); }
+.p-badge.dark   { background:var(--dark); }
+.p-quick {
+  position:absolute; bottom:0; left:0; right:0;
+  background:rgba(10,10,10,.85); backdrop-filter:blur(6px);
+  color:#fff; text-align:center; font-size:.78rem; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase;
+  padding:.7rem; transform:translateY(100%);
+  transition:transform .3s var(--ease);
+}
+.p-card:hover .p-quick { transform:translateY(0); }
+.p-info { padding:1.1rem 1.2rem 1.3rem; }
+.p-design { font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:var(--gray); margin-bottom:.3rem; }
+.p-name   { font-family:var(--fh); font-size:1.4rem; letter-spacing:.02em; margin-bottom:.5rem; }
+.p-colors { font-size:.72rem; color:var(--gray); margin-bottom:.9rem; }
+.p-foot   { display:flex; align-items:center; justify-content:space-between; }
+.p-price  { font-size:1rem; font-weight:700; }
+.p-price span { font-size:.75rem; font-weight:400; color:var(--gray); margin-left:.3rem; }
+.p-add {
+  background:var(--dark); color:#fff;
+  padding:.45rem 1rem; border-radius:4px;
+  font-size:.72rem; font-weight:600; letter-spacing:.06em;
+  transition:background .25s, transform .2s;
+}
+.p-add:hover { background:var(--red); transform:scale(1.04); }
+
+/* ── BANNER SECTION ── */
+.s-banner {
+  position:relative; overflow:hidden;
+  min-height:420px; display:flex; align-items:center;
+  background: var(--dark) url('baju/000.jpg') center/cover no-repeat;
+}
+.s-banner::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(0,0,0,.85) 0%, rgba(0,0,0,.55) 100%);
+}
+.banner-inner {
+  position:relative; z-index:1;
+  max-width:var(--max); margin:0 auto; padding:5rem 1.5rem;
+  max-width:680px;
+}
+.banner-inner h2 {
+  font-family:var(--fh); font-size:clamp(2rem, 5vw, 3.5rem);
+  color:#fff; line-height:1; letter-spacing:.02em; margin:1rem 0;
+}
+.banner-inner p { color:rgba(255,255,255,.65); margin-bottom:2rem; line-height:1.7; }
+
+/* ── PROCESS ── */
+.s-process { padding:6rem 0; background:var(--dark); }
+.s-process .s-title { color:var(--white); }
+.s-process .s-sub   { color:var(--gray); }
+.s-process .s-tag   { color:rgba(255,255,255,.4); }
+.steps-grid {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1rem;
+}
+.step {
+  background:var(--dark2); border-radius:var(--r); padding:2rem 1.5rem;
+  position:relative; overflow:hidden;
+  border:1px solid rgba(255,255,255,.05);
+  transition:background .3s, border-color .3s, transform .35s var(--ease);
+}
+.step:hover { background:var(--dark3); border-color:var(--red); transform:translateY(-6px); }
+.step-num {
+  font-family:var(--fh); font-size:4rem; line-height:1;
+  color:rgba(255,255,255,.05); position:absolute; top:.5rem; right:.8rem;
+}
+.step-icon {
+  width:48px; height:48px; color:var(--red); margin-bottom:1.2rem;
+}
+.step-icon svg { width:100%; height:100%; }
+.step h3 { font-size:1.05rem; font-weight:700; color:#fff; margin-bottom:.6rem; }
+.step p  { font-size:.85rem; color:var(--gray); line-height:1.65; }
+
+/* ── CUSTOM ORDER ── */
+.s-order { padding:6rem 0; background:var(--white); }
+.order-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:5rem; align-items:start; }
+.order-info h2 {
+  font-family:var(--fh); font-size:clamp(2.5rem, 4vw, 3.5rem);
+  letter-spacing:.02em; margin:.6rem 0 1rem; line-height:1.05;
+}
+.order-info p { color:var(--gray); line-height:1.7; margin-bottom:1.5rem; }
+.btn-wa {
+  display:inline-flex; align-items:center; gap:.6rem;
+  background:var(--wa); color:#fff;
+  padding:.8rem 1.6rem; border-radius:4px;
+  font-size:.85rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  transition:filter .25s, transform .2s;
+}
+.btn-wa:hover { filter:brightness(1.1); transform:translateY(-2px); }
+.order-perks {
+  margin-top:2rem; display:flex; flex-direction:column; gap:.6rem;
+}
+.order-perks li {
+  font-size:.88rem; color:var(--dark);
+  display:flex; align-items:center; gap:.5rem;
+}
+
+/* Order form */
+.order-form-wrap {
+  background:var(--off); border-radius:var(--r);
+  padding:2.2rem; border:1px solid #e8e8e8;
+}
+.order-form { display:flex; flex-direction:column; gap:1.2rem; }
+.f-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.f-grp { display:flex; flex-direction:column; gap:.4rem; }
+.f-grp label { font-size:.75rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--dark3); }
+.lbl-note { font-size:.68rem; color:var(--gray); font-weight:400; text-transform:none; letter-spacing:0; }
+.f-grp input, .f-grp select, .f-grp textarea {
+  width:100%; padding:.7rem .9rem; border-radius:6px;
+  border:1.5px solid #ddd; background:#fff;
+  font-size:.88rem; color:var(--dark);
+  transition:border-color .25s, box-shadow .25s;
+}
+.f-grp input:focus, .f-grp select:focus, .f-grp textarea:focus {
+  border-color:var(--red); outline:none;
+  box-shadow:0 0 0 3px rgba(230,48,18,.1);
+}
+.f-grp textarea { resize:vertical; min-height:80px; }
+
+/* Qty grid */
+.qty-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:.5rem; }
+.qty-sz { display:flex; flex-direction:column; align-items:center; gap:.3rem; }
+.qty-sz span { font-size:.65rem; font-weight:700; color:var(--gray); text-transform:uppercase; }
+.qin {
+  width:100%; text-align:center;
+  padding:.4rem .2rem; font-size:.82rem; font-weight:600;
+  border:1.5px solid #ddd; border-radius:5px;
+  background:#fff; transition:border-color .2s;
+}
+.qin:focus { border-color:var(--red); outline:none; }
+.qty-total { font-size:.78rem; color:var(--gray); margin-top:.4rem; }
+.qty-total strong { color:var(--red); }
+
+.radio-row { display:flex; gap:1.5rem; }
+.rl { display:flex; align-items:center; gap:.4rem; font-size:.88rem; cursor:pointer; }
+.rl input { accent-color:var(--red); }
+
+.btn-submit {
+  width:100%; padding:1rem; border-radius:6px;
+  background:var(--wa); color:#fff;
+  font-size:.9rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  display:flex; align-items:center; justify-content:center; gap:.6rem;
+  transition: filter .25s, transform .2s, box-shadow .3s;
+}
+.btn-submit:hover {
+  filter:brightness(1.1); transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(37,211,102,.3);
+}
+
+/* ── ABOUT ── */
+.s-about { padding:6rem 0; background:var(--black); }
+.s-about .s-tag { color:rgba(255,255,255,.4); }
+.about-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:5rem; align-items:center; }
+.about-imgs { display:grid; grid-template-columns:1fr .55fr; gap:1rem; align-items:end; }
+.ai-main, .ai-sub { border-radius:var(--r); overflow:hidden; position:relative; }
+.ai-main img { aspect-ratio:.8; }
+.ai-sub img  { aspect-ratio:1; }
+.ai-badge {
+  position:absolute; bottom:0; right:0;
+  background:var(--red); color:#fff;
+  font-family:var(--fh); font-size:1.1rem; letter-spacing:.06em;
+  padding:.5rem .8rem; border-radius:var(--r) 0 0 0;
+}
+.about-text h2 {
+  font-family:var(--fh); font-size:clamp(2.2rem, 4vw, 3.2rem);
+  color:#fff; line-height:1.05; letter-spacing:.02em;
+  margin:.6rem 0 1.2rem;
+}
+.about-text p { color:var(--gray); line-height:1.75; margin-bottom:1rem; }
+.about-feats { margin-top:1.8rem; display:flex; flex-direction:column; gap:1rem; }
+.af {
+  display:flex; align-items:flex-start; gap:1rem;
+  background:var(--dark2); padding:1rem 1.1rem; border-radius:10px;
+  border:1px solid rgba(255,255,255,.05);
+  transition:border-color .25s;
+}
+.af:hover { border-color:var(--red); }
+.af-ico { font-size:1.4rem; flex-shrink:0; }
+.af strong { display:block; font-weight:700; color:#fff; margin-bottom:.15rem; font-size:.9rem; }
+.af span   { font-size:.8rem; color:var(--gray); }
+
+/* ── TESTIMONIALS ── */
+.s-testi { padding:6rem 0; background:var(--dark); }
+.s-testi .s-title { color:var(--white); }
+.s-testi .s-tag   { color:rgba(255,255,255,.4); }
+.testi-wrap { position:relative; overflow:hidden; margin-top:1rem; }
+.testi-track {
+  display:flex; transition:transform .5s var(--ease);
+}
+.t-card {
+  min-width:100%; padding:1rem 4rem;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+}
+.t-stars { color:var(--gold); font-size:1.2rem; margin-bottom:1.2rem; letter-spacing:.1em; }
+.t-text {
+  font-size:1.15rem; line-height:1.7; color:rgba(255,255,255,.85);
+  max-width:620px; margin-bottom:1.8rem; font-style:italic;
+}
+.t-author { font-weight:700; color:#fff; margin-bottom:.2rem; }
+.t-role   { font-size:.78rem; color:var(--gray); letter-spacing:.08em; text-transform:uppercase; }
+.testi-nav { display:flex; align-items:center; justify-content:center; gap:1rem; margin-top:2.5rem; }
+.tn-btn {
+  width:40px; height:40px; border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.2); color:#fff;
+  font-size:1rem; display:flex; align-items:center; justify-content:center;
+  transition:border-color .25s, background .25s;
+}
+.tn-btn:hover { border-color:var(--red); background:var(--red); }
+.testi-dots { display:flex; gap:.5rem; }
+.t-dot {
+  width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.2);
+  transition:background .3s, transform .3s;
+}
+.t-dot.active { background:var(--red); transform:scale(1.3); }
+
+/* ── CONTACT ── */
+.s-contact { padding:6rem 0; background:var(--off); }
+.contact-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:1rem; }
+.cc {
+  background:#fff; border-radius:var(--r); padding:2rem 1.5rem;
+  text-align:center; border:1.5px solid transparent;
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
+  transition:border-color .3s, transform .3s var(--ease);
+}
+.cc:hover { transform:translateY(-6px); }
+.cc-ico {
+  width:52px; height:52px; border-radius:14px;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 1.2rem; font-size:1.2rem;
+}
+.cc-ico.wa { background:#d4f5e4; color:var(--wa); }
+.cc-ico.em { background:#e3e8ff; color:#4f46e5; }
+.cc-ico.ig { background:#ffe4f0; color:#e11d74; }
+.cc:hover .cc-ico.wa { background:var(--wa); color:#fff; }
+.cc:hover .cc-ico.em { background:#4f46e5; color:#fff; }
+.cc:hover .cc-ico.ig { background:#e11d74; color:#fff; }
+.cc:hover { border-color:var(--dark3); }
+.cc h3 { font-size:1.1rem; font-weight:700; margin-bottom:.4rem; }
+.cc p  { font-size:.85rem; color:var(--gray); line-height:1.6; margin-bottom:1rem; }
+.cc-lnk { font-size:.88rem; font-weight:600; color:var(--red); }
+.cc-lnk:hover { text-decoration:underline; }
+
+/* ── FOOTER ── */
+.footer { background:var(--black); padding:4rem 0 2rem; }
+.footer-grid { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:3rem; padding-bottom:3rem; border-bottom:1px solid rgba(255,255,255,.07); }
+.fg-logo { font-size:1.7rem; color:var(--white); margin-bottom:.8rem; }
+.fg-brand p { font-size:.84rem; color:var(--gray); line-height:1.7; margin-bottom:1.2rem; }
+.socials { display:flex; gap:.8rem; }
+.socials a {
+  width:36px; height:36px; border-radius:8px;
+  border:1px solid rgba(255,255,255,.12);
+  display:flex; align-items:center; justify-content:center; color:var(--gray);
+  transition:border-color .25s, color .25s, background .25s;
+}
+.socials a:hover { border-color:var(--red); color:#fff; background:var(--red); }
+.fg-col h4 { font-size:.8rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:#fff; margin-bottom:1.1rem; }
+.fg-col ul { display:flex; flex-direction:column; gap:.6rem; }
+.fg-col li, .fg-col a { font-size:.85rem; color:var(--gray); transition:color .2s; }
+.fg-col a:hover { color:var(--white); }
+.footer-btm {
+  display:flex; justify-content:space-between; align-items:center;
+  padding-top:1.5rem; flex-wrap:wrap; gap:.5rem;
+}
+.footer-btm p { font-size:.78rem; color:rgba(255,255,255,.25); }
+
+/* ── CART SIDEBAR ── */
+.cart-overlay {
+  position:fixed; inset:0; z-index:1100;
+  background:rgba(0,0,0,.6); backdrop-filter:blur(4px);
+  opacity:0; pointer-events:none;
+  transition:opacity .35s;
+}
+.cart-overlay.open { opacity:1; pointer-events:all; }
+.cart-sidebar {
+  position:fixed; top:0; right:0; bottom:0; z-index:1101;
+  width:min(420px,95vw); background:#fff;
+  display:flex; flex-direction:column;
+  transform:translateX(100%);
+  transition:transform .4s var(--ease);
+  box-shadow:-10px 0 50px rgba(0,0,0,.2);
+}
+.cart-sidebar.open { transform:translateX(0); }
+.cs-hd {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.2rem 1.5rem; border-bottom:1px solid #eee;
+}
+.cs-hd h3 { font-size:1rem; font-weight:700; letter-spacing:.05em; }
+.cs-close {
+  width:32px; height:32px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:#f0f0f0; font-size:.9rem;
+  transition:background .2s;
+}
+.cs-close:hover { background:var(--red); color:#fff; }
+.cs-body { flex:1; overflow-y:auto; padding:1rem 1.5rem; -webkit-overflow-scrolling:touch; }
+.cs-empty {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  height:100%; gap:.8rem; color:var(--gray); text-align:center;
+  padding:3rem 1rem;
+}
+.cs-empty svg { opacity:.3; }
+.cs-empty p { font-weight:600; font-size:.9rem; }
+.cs-empty small { font-size:.78rem; }
+
+/* Cart item */
+.ci {
+  display:flex; gap:1rem; padding:1rem 0;
+  border-bottom:1px solid #f0f0f0; align-items:center;
+}
+.ci-img { width:70px; height:70px; border-radius:8px; overflow:hidden; flex-shrink:0; }
+.ci-img img { width:100%; height:100%; object-fit:cover; }
+.ci-info { flex:1; }
+.ci-name { font-size:.88rem; font-weight:700; margin-bottom:.2rem; }
+.ci-design { font-size:.72rem; color:var(--gray); }
+.ci-price { font-size:.85rem; font-weight:700; color:var(--red); margin-top:.3rem; }
+.ci-rm {
+  padding:.3rem .6rem; border-radius:4px;
+  font-size:.7rem; color:var(--gray);
+  background:#f5f5f5; transition:background .2s, color .2s;
+}
+.ci-rm:hover { background:var(--red); color:#fff; }
+.cs-ft { padding:1.2rem 1.5rem; border-top:1px solid #eee; }
+.cs-sum {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:.5rem; font-size:.9rem;
+}
+.cs-sum strong { font-size:1.1rem; }
+.cs-note { font-size:.72rem; color:var(--gray); margin-bottom:1rem; line-height:1.5; }
+.btn-checkout {
+  width:100%; padding:.95rem; border-radius:6px;
+  background:var(--wa); color:#fff;
+  font-size:.88rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  display:flex; align-items:center; justify-content:center; gap:.6rem;
+  transition:filter .25s, transform .2s;
+}
+.btn-checkout:hover { filter:brightness(1.1); transform:translateY(-1px); }
+
+/* ── PRODUCT MODAL ── */
+.modal-ov {
+  position:fixed; inset:0; z-index:1200;
+  background:rgba(0,0,0,.7); backdrop-filter:blur(6px);
+  opacity:0; pointer-events:none;
+  transition:opacity .35s;
+}
+.modal-ov.open { opacity:1; pointer-events:all; }
+.prod-modal {
+  position:fixed; inset:1rem; z-index:1201;
+  background:#fff; border-radius:var(--r);
+  overflow-y:auto; padding:2rem;
+  opacity:0; pointer-events:none;
+  transition:transform .4s var(--ease), opacity .35s;
+  max-width:860px; margin:auto;
+  top:50%; bottom:auto;
+  transform:translateY(-50%) scale(.92);
+  -webkit-overflow-scrolling: touch;
+}
+.prod-modal.open {
+  opacity:1; pointer-events:all;
+  transform:translateY(-50%) scale(1);
+}
+.pm-close {
+  position:absolute; top:1rem; right:1rem;
+  width:34px; height:34px; border-radius:50%; background:#f0f0f0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:.9rem; z-index:2;
+  transition:background .2s, color .2s;
+}
+.pm-close:hover { background:var(--red); color:#fff; }
+.pm-inner { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+.pm-img { border-radius:10px; overflow:hidden; }
+.pm-img img { width:100%; aspect-ratio:1; object-fit:cover; }
+.pm-info { padding:.5rem 0; }
+.pm-tag  { font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; color:var(--gray); margin-bottom:.4rem; }
+.pm-name { font-family:var(--fh); font-size:2rem; margin-bottom:.5rem; }
+.pm-price-row { display:flex; align-items:baseline; gap:.5rem; margin-bottom:1rem; }
+.pm-price { font-size:1.4rem; font-weight:700; color:var(--red); }
+.pm-min   { font-size:.8rem; color:var(--gray); }
+.pm-desc  { font-size:.88rem; color:var(--gray); line-height:1.7; margin-bottom:1.5rem; }
+.pm-colors{ font-size:.82rem; margin-bottom:1.5rem; }
+.pm-colors strong { display:block; margin-bottom:.3rem; font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; }
+.pm-ctas { display:flex; gap:.8rem; flex-wrap:wrap; }
+.pm-ctas .btn-primary { flex:1; justify-content:center; }
+.pm-ctas .btn-wa-sm {
+  display:flex; align-items:center; gap:.5rem; justify-content:center;
+  padding:.8rem 1.2rem; border-radius:4px;
+  border:1.5px solid var(--wa); color:var(--wa);
+  font-size:.8rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  transition:background .25s, color .25s;
+}
+.pm-ctas .btn-wa-sm:hover { background:var(--wa); color:#fff; }
+
+/* ── TOAST ── */
+.toast {
+  position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--dark); color:#fff;
+  padding:.75rem 1.5rem; border-radius:8px;
+  font-size:.85rem; font-weight:600;
+  opacity:0; pointer-events:none;
+  transition:opacity .3s, transform .3s;
+  white-space:nowrap; z-index:2000;
+  box-shadow:0 8px 30px rgba(0,0,0,.3);
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ── FLOATING WHATSAPP ── */
+.float-wa {
+  position:fixed; bottom:2rem; right:2rem; z-index:900;
+  width:56px; height:56px; border-radius:50%;
+  background:var(--wa); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 20px rgba(37,211,102,.5);
+  transition:transform .3s var(--ease), box-shadow .3s;
+}
+.float-wa:hover { transform:scale(1.12); box-shadow:0 8px 30px rgba(37,211,102,.6); }
+.float-wa-ring {
+  position:absolute; inset:-6px; border-radius:50%;
+  border:2px solid var(--wa); opacity:.4;
+  animation:waRing 2s ease-out infinite;
+}
+@keyframes waRing {
+  0%   { transform:scale(1); opacity:.4; }
+  100% { transform:scale(1.5); opacity:0; }
+}
+
+/* ── SCROLL TOP ── */
+.scroll-top {
+  position:fixed; bottom:2rem; left:2rem; z-index:900;
+  width:44px; height:44px; border-radius:50%;
+  background:var(--dark); color:#fff;
+  font-size:1.1rem;
+  box-shadow:0 4px 16px rgba(0,0,0,.2);
+  opacity:0; pointer-events:none;
+  transform:translateY(10px);
+  transition:opacity .3s, transform .3s;
+}
+.scroll-top.show { opacity:1; pointer-events:all; transform:translateY(0); }
+.scroll-top:hover { background:var(--red); }
+
+/* ── SCROLL REVEAL ANIMATIONS ── */
+.rv, .rv-left, .rv-right {
+  opacity:0; transform:translateY(40px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+}
+.rv-left  { transform:translateX(-50px); }
+.rv-right { transform:translateX(50px); }
+.rv.in, .rv-left.in, .rv-right.in {
+  opacity:1; transform:translate(0);
+}
+.dl1 { transition-delay:.05s; }
+.dl2 { transition-delay:.12s; }
+.dl3 { transition-delay:.22s; }
+.dl4 { transition-delay:.32s; }
+.dl5 { transition-delay:.42s; }
+.dl6 { transition-delay:.55s; }
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE — Complete Mobile-Perfect Layout
+══════════════════════════════════════════════ */
+
+a, button, input, select, textarea { touch-action: manipulation; }
+html, body { overflow-x: hidden; max-width: 100%; }
+
+.f-btn, .btn-primary, .btn-ghost, .btn-nav,
+.btn-wa, .btn-submit, .btn-checkout, .tn-btn,
+.cart-btn, .p-add, .cs-close, .pm-close { min-height: 44px; }
+
+.mob-lnk { min-height: 44px; display: flex !important; align-items: center; justify-content: center; }
+
+@media (max-width: 1024px) {
+  .steps-grid  { grid-template-columns: repeat(2, 1fr); }
+  .order-grid  { grid-template-columns: 1fr; gap: 3rem; }
+  .about-grid  { grid-template-columns: 1fr; gap: 3rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .fg-brand    { grid-column: 1 / -1; }
+  .s-products, .s-process, .s-order,
+  .s-about, .s-testi, .s-contact { padding: 4rem 0; }
+  .order-info h2 { font-size: 2.8rem; }
+  .about-text h2 { font-size: 2.5rem; }
+  .pm-inner { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  :root { --nav-h: 56px; }
+  .rv-left  { transform: translateY(30px); }
+  .rv-right { transform: translateY(30px); }
+  .nav-links, .btn-nav { display: none; }
+  .burger   { display: flex; }
+  .nav-inner { justify-content: space-between; gap: .5rem; }
+  #navbar { background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); }
+  #navbar.scrolled { background: rgba(10,10,10,0.98); }
+  .hero { min-height: 100svh; min-height: 100vh; align-items: flex-end; }
+  .hero-content { padding: var(--nav-h) 1.2rem 5rem; width: 100%; }
+  .hl { font-size: clamp(4rem, 21vw, 7rem); line-height: .9; }
+  .hero-tag { font-size: .68rem; letter-spacing: .12em; margin-bottom: .8rem; }
+  .hero-sub { font-size: .88rem; line-height: 1.6; margin-top: 1rem; max-width: 100%; }
+  .hero-cta  { flex-direction: column; gap: .7rem; margin-top: 1.2rem; }
+  .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: .5rem; margin-top: 1.4rem;
+    background: rgba(255,255,255,.04);
+    border-radius: 10px; padding: .8rem .5rem;
+  }
+  .hs { text-align: center; }
+  .hs-div { display: none; }
+  .hs-n   { font-size: 1.5rem; }
+  .hs-l   { font-size: .58rem; letter-spacing: .06em; }
+  .hero-scroll { display: none; }
+  .container { padding: 0 1.1rem; }
+  .s-products, .s-process, .s-order,
+  .s-about, .s-testi, .s-contact { padding: 3rem 0; }
+  .s-hd    { margin-bottom: 1.8rem; }
+  .s-title { font-size: clamp(1.7rem, 6vw, 2.2rem); }
+  .s-sub   { font-size: .85rem; }
+  .products-grid { grid-template-columns: 1fr 1fr; gap: .8rem; }
+  .p-quick       { display: none; }
+  .p-info        { padding: .75rem .9rem .9rem; }
+  .p-name        { font-size: 1.05rem; }
+  .p-colors      { font-size: .68rem; margin-bottom: .6rem; }
+  .p-foot        { gap: .4rem; }
+  .p-price       { font-size: .9rem; }
+  .p-add         { padding: .4rem .75rem; font-size: .68rem; }
+  .filter-row {
+    overflow-x: auto; flex-wrap: nowrap;
+    gap: .5rem; padding-bottom: 3px;
+    -ms-overflow-style: none; scrollbar-width: none;
+    margin-bottom: 1.5rem;
+  }
+  .filter-row::-webkit-scrollbar { display: none; }
+  .f-btn { flex-shrink: 0; padding: .5rem 1.1rem; font-size: .72rem; }
+  .s-banner { min-height: 300px; background-position: 70% center; }
+  .banner-inner { padding: 3rem 1.2rem; max-width: 100%; }
+  .banner-inner h2 { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+  .banner-inner p  { font-size: .85rem; }
+  .steps-grid { grid-template-columns: 1fr; gap: .7rem; }
+  .step {
+    padding: 1.2rem 1.1rem;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: .9rem;
+    align-items: start;
+  }
+  .step-num {
+    position: static; font-size: 1.8rem; color: var(--red); opacity: 1;
+    grid-row: 1 / 3; align-self: center; line-height: 1;
+  }
+  .step-icon { display: none; }
+  .step h3   { font-size: .95rem; margin-bottom: .2rem; grid-column: 2; }
+  .step p    { font-size: .82rem; line-height: 1.55; grid-column: 2; color: var(--gray); }
+  .order-grid    { gap: 2rem; }
+  .order-info h2 { font-size: 2.2rem; }
+  .f-row         { grid-template-columns: 1fr; gap: .8rem; }
+  .order-form    { gap: .9rem; }
+  .order-form-wrap { padding: 1.3rem 1.1rem; }
+  .qty-grid { grid-template-columns: repeat(4, 1fr); gap: .4rem; }
+  .qty-sz span { font-size: .6rem; }
+  .qin { padding: .55rem .2rem; font-size: .78rem; }
+  .btn-submit { font-size: .82rem; padding: .9rem 1rem; }
+  .about-grid  { grid-template-columns: 1fr; gap: 2rem; }
+  .about-imgs  { display: block; }
+  .ai-main     { border-radius: var(--r); overflow: hidden; }
+  .ai-main img { aspect-ratio: 4/3; width: 100%; height: auto; }
+  .ai-sub      { display: none; }
+  .about-text h2 { font-size: 2rem; }
+  .about-feats   { margin-top: 1.2rem; gap: .7rem; }
+  .af { padding: .9rem 1rem; gap: .8rem; }
+  .t-card  { padding: .5rem .3rem 1rem; }
+  .t-text  { font-size: .9rem; }
+  .t-stars { font-size: 1rem; margin-bottom: .8rem; }
+  .contact-cards { grid-template-columns: 1fr; gap: .9rem; }
+  .cc {
+    display: grid; grid-template-columns: 52px 1fr; grid-template-rows: auto auto auto;
+    column-gap: 1rem; text-align: left; padding: 1.2rem 1.1rem; align-items: center;
+  }
+  .cc-ico    { margin: 0; grid-row: 1 / 4; align-self: center; }
+  .cc h3     { font-size: 1rem; margin-bottom: .1rem; }
+  .cc p      { font-size: .78rem; margin-bottom: .2rem; }
+  .cc-lnk    { font-size: .82rem; }
+  .footer        { padding: 2.5rem 0 1.5rem; }
+  .footer-grid   { grid-template-columns: 1fr 1fr; gap: 1.8rem; }
+  .fg-brand      { grid-column: 1 / -1; }
+  .footer-btm    { flex-direction: column; align-items: center; gap: .3rem; text-align: center; }
+  .cart-sidebar { width: 100%; max-width: 100%; }
+  .prod-modal {
+    position: fixed; left: 0; right: 0; bottom: 0; top: auto;
+    max-width: 100%; max-height: 88vh; border-radius: 20px 20px 0 0;
+    transform: translateY(100%); opacity: 1;
+    padding: 1.5rem 1.2rem 2rem; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  }
+  .prod-modal::before {
+    content: ''; display: block; width: 36px; height: 4px;
+    background: #ddd; border-radius: 2px; margin: 0 auto 1.2rem;
+  }
+  .prod-modal.open { transform: translateY(0); opacity: 1; }
+  .pm-inner  { grid-template-columns: 1fr; gap: 1rem; }
+  .pm-img img { aspect-ratio: 4/3; }
+  .pm-name   { font-size: 1.6rem; }
+  .pm-close  { top: .7rem; right: .8rem; }
+  .pm-ctas   { flex-direction: column; }
+  .pm-ctas .btn-primary, .pm-ctas .btn-wa-sm { width: 100%; justify-content: center; }
+  .float-wa   { bottom: 1.4rem; right: 1.4rem; width: 50px; height: 50px; }
+  .scroll-top { bottom: 1.4rem; left: 1.4rem;  width: 42px; height: 42px; font-size: 1rem; }
+  .toast {
+    left: 1rem; right: 1rem; bottom: 5.5rem;
+    transform: translateY(10px); white-space: normal; text-align: center;
+  }
+  .toast.show { transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .hl { font-size: clamp(3.6rem, 19vw, 5.5rem); }
+  .products-grid { grid-template-columns: 1fr; gap: .8rem; }
+  .p-card { display: flex; flex-direction: row; align-items: stretch; height: 120px; }
+  .p-img-wrap { width: 120px; flex-shrink: 0; aspect-ratio: unset; height: auto; border-radius: var(--r) 0 0 var(--r); }
+  .p-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .p-badge { font-size: .55rem; padding: .2rem .45rem; top: .5rem; left: .5rem; }
+  .p-info  { flex: 1; padding: .75rem .9rem; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+  .p-name  { font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .p-colors { display: none; }
+  .p-foot  { margin-top: auto; }
+  .p-price { font-size: .88rem; }
+  .step-num { font-size: 1.6rem; }
+  .qty-grid { grid-template-columns: repeat(4, 1fr); }
+  .footer-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+  .fg-col h4   { margin-bottom: .7rem; }
+  .pl-logo-img { width: 60px; height: 60px; }
+  .pl-logo     { font-size: 1.8rem; margin-bottom: 20px; }
+}
+
+@media (max-width: 360px) {
+  .hl   { font-size: 3.2rem; }
+  .hero-stats { grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .hs:last-child { grid-column: 1 / -1; }
+  .qty-grid { grid-template-columns: repeat(3, 1fr); }
+  .p-img-wrap { width: 100px; }
+}
+
+@supports (padding: max(0px)) {
+  .float-wa   { bottom: max(1.4rem, env(safe-area-inset-bottom)); }
+  .scroll-top { bottom: max(1.4rem, env(safe-area-inset-bottom)); }
+  .cs-ft      { padding-bottom: max(1.2rem, env(safe-area-inset-bottom)); }
+  .prod-modal { padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
+}
+
+/* ══════════════════════════════════════════════════
+   MULTI-SECTION ADDITIONS
+══════════════════════════════════════════════════ */
+.nav-links a.active { color: var(--red) !important; }
+.mob-lnk.active     { color: var(--red) !important; }
+
+.has-drop { position: relative; }
+.has-drop > a { display: flex; align-items: center; gap: .3em; }
+.drop-arrow { font-size: .7em; transition: transform .25s; line-height: 1; }
+.has-drop:hover .drop-arrow { transform: rotate(180deg); }
+
+.nav-drop {
+  position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  min-width: 200px; background: rgba(14,14,14,.97);
+  border: 1px solid rgba(255,255,255,.1); border-radius: 12px;
+  padding: .5rem; padding-top: calc(.5rem + 12px); margin-top: 0;
+  opacity: 0; visibility: hidden;
+  transition: opacity .22s var(--ease), transform .22s var(--ease), visibility .22s;
+  backdrop-filter: blur(16px); z-index: 500; pointer-events: none;
+}
+.has-drop:hover .nav-drop {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto;
+}
+.nav-drop::before {
+  content: ''; position: absolute; top: 6px; left: 50%;
+  width: 10px; height: 10px; background: rgba(14,14,14,.97);
+  border-top: 1px solid rgba(255,255,255,.1); border-left: 1px solid rgba(255,255,255,.1);
+  transform: translateX(-50%) rotate(45deg);
+}
+.nav-drop a {
+  display: flex; align-items: center; gap: .6em;
+  padding: .65rem 1rem; border-radius: 8px;
+  font-size: .85rem; font-weight: 500; color: var(--gray-lt);
+  transition: background .18s, color .18s;
+}
+.nav-drop a:hover { background: rgba(230,48,18,.12); color: var(--white); }
+.nav-drop .drop-divider { height: 1px; background: rgba(255,255,255,.07); margin: .3rem .5rem; }
+
+.mob-cat-hd {
+  font-size: .62rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); padding: 1rem 0 .25rem; pointer-events: none;
+}
+
+.page-hd {
+  padding: calc(var(--nav-h) + 72px) 0 60px;
+  text-align: center; background: var(--black);
+  position: relative; border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.page-hd::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(230,48,18,.14) 0%, transparent 70%);
+  pointer-events: none;
+}
+.page-hd .container { position: relative; z-index: 1; }
+.page-hd .s-tag  { display: inline-block; margin-bottom: 1.2rem; }
+.page-hd h1      { font-family:var(--fh); font-size:clamp(3rem,7vw,5.5rem); color:var(--white); line-height:1; margin:0 0 .75rem; }
+.page-hd p       { color:var(--gray); font-size:1.05rem; max-width:560px; margin:0 auto; }
+
+.p-cat-tag {
+  display: inline-block; font-size: .6rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; padding: .2em .7em; border-radius: 20px;
+  margin-bottom: .3rem; color: var(--white);
+}
+.p-card[data-cat="football"] .p-cat-tag { background: rgba(230,48,18,.18); color: #ff6b4a; border: 1px solid rgba(230,48,18,.3); }
+.p-card[data-cat="casual"]   .p-cat-tag { background: rgba(99,102,241,.18); color: #a5b4fc; border: 1px solid rgba(99,102,241,.3); }
+.p-card[data-cat="formal"]   .p-cat-tag { background: rgba(234,179,8,.12); color: #fbbf24; border: 1px solid rgba(234,179,8,.25); }
+
+.s-featured .view-all-wrap { text-align: center; margin-top: 3rem; }
+.filter-row { flex-wrap: wrap; }
+
+.cat-football .page-hd::before {
+  background: radial-gradient(ellipse 90% 70% at 50% 0%, rgba(34,197,94,.18) 0%, rgba(230,48,18,.08) 60%, transparent 100%);
+}
+.cat-football .s-tag { color: #4ade80; border-color: rgba(34,197,94,.3); background: rgba(34,197,94,.08); }
+.cat-casual .page-hd::before {
+  background: radial-gradient(ellipse 90% 70% at 50% 0%, rgba(99,102,241,.22) 0%, rgba(168,85,247,.08) 60%, transparent 100%);
+}
+.cat-casual .s-tag { color: #a5b4fc; border-color: rgba(99,102,241,.3); background: rgba(99,102,241,.08); }
+.cat-formal .page-hd::before {
+  background: radial-gradient(ellipse 90% 70% at 50% 0%, rgba(234,179,8,.2) 0%, rgba(180,120,0,.08) 60%, transparent 100%);
+}
+.cat-formal .s-tag { color: #fbbf24; border-color: rgba(234,179,8,.3); background: rgba(234,179,8,.08); }
+
+.cat-highlights { padding: 3.5rem 0; background: var(--black); border-bottom: 1px solid rgba(255,255,255,.06); }
+.cat-hl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.cat-hl {
+  display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem;
+  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07);
+  border-radius: 16px; transition: border-color .25s, background .25s;
+}
+.cat-hl:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.14); }
+.cat-hl-ico {
+  font-size: 1.8rem; line-height: 1; flex-shrink: 0; width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 12px; background: rgba(255,255,255,.05);
+}
+.cat-football .cat-hl-ico { background: rgba(34,197,94,.1); }
+.cat-casual   .cat-hl-ico { background: rgba(99,102,241,.1); }
+.cat-formal   .cat-hl-ico { background: rgba(234,179,8,.1); }
+.cat-hl h4 { font-size: .95rem; font-weight: 700; color: var(--white); margin: 0 0 .3rem; }
+.cat-hl p  { font-size: .82rem; color: var(--gray); margin: 0; line-height: 1.5; }
+
+.view-all-wrap { text-align: center; }
+
+@media (max-width: 768px) {
+  .page-hd { padding: calc(var(--nav-h) + 48px) 0 40px; }
+  .page-hd h1 { font-size: clamp(2.4rem, 8vw, 3.5rem); }
+  .cat-hl-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .cat-highlights { padding: 2.5rem 0; }
+}
+@media (max-width: 480px) { .p-cat-tag { display: none; } }
+
+.s-cats {
+  padding: 5rem 0; background: rgba(255,255,255,.02);
+  border-top: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.cats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.cat-card {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 2.5rem 1.5rem; border: 1px solid rgba(255,255,255,.08); border-radius: var(--r);
+  background: rgba(255,255,255,.03); transition: border-color .3s, background .3s, transform .3s;
+  text-decoration: none; color: var(--white);
+}
+.cat-card:hover { border-color: var(--red); background: rgba(230,48,18,.06); transform: translateY(-4px); }
+.cat-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.cat-card h3 { font-family: var(--fh); font-size: 1.6rem; margin: 0 0 .5rem; }
+.cat-card p  { color: var(--gray); font-size: .875rem; line-height: 1.5; margin: 0 0 1rem; }
+.cat-count { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--red); border: 1px solid rgba(230,48,18,.3); padding: .25em .8em; border-radius: 20px; }
+
+@media (max-width: 768px) {
+  .cats-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .cat-card { flex-direction: row; text-align: left; padding: 1.2rem 1.5rem; gap: 1.2rem; }
+  .cat-icon { font-size: 2rem; margin: 0; flex-shrink: 0; }
+  .cat-card p { margin: 0; }
+  .cat-count { margin-top: .4rem; }
+}
+
+.faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
+.faq-item { padding: 1.8rem; border: 1px solid rgba(255,255,255,.08); border-radius: var(--r); background: rgba(255,255,255,.03); }
+.faq-item h4 { color: var(--white); margin: 0 0 .6rem; font-size: 1rem; font-weight: 600; }
+.faq-item p  { color: var(--gray); font-size: .875rem; margin: 0; line-height: 1.6; }
+@media (max-width: 768px) { .faq-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body class="is-loading">
+
+  <!-- PRELOADER -->
+  <div id="preloader">
+    <div class="pl-wrap">
+      <img src="logo/logo.jpg" alt="MN Sports" class="pl-logo-img">
+      <div class="pl-logo">MN<span>SPORTS</span></div>
+      <div class="pl-track"><div class="pl-fill" id="plFill"></div></div>
+      <div class="pl-pct" id="plPct">0%</div>
+    </div>
+  </div>
+
+  <!-- CURSOR -->
+  <div id="cDot"></div>
+  <div id="cRing"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#home" class="nav-logo" data-route="home">
+        <img src="logo/logo.jpg" alt="MN Sports" class="logo-img">
+        <span class="logo-txt">MN<span>sport</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" data-route="home">Home</a></li>
+        <li class="has-drop">
+          <a href="#products" data-route-group="products,football,casual,formal">Produk <span class="drop-arrow">▾</span></a>
+          <div class="nav-drop">
+            <a href="#football">⚽ Football</a>
+            <a href="#casual">👕 Casual</a>
+            <a href="#formal">👔 Formal</a>
+            <div class="drop-divider"></div>
+            <a href="#products">Semua Koleksi</a>
+          </div>
+        </li>
+        <li><a href="#order" data-route="order">Cara Order</a></li>
+        <li><a href="#about" data-route="about">Tentang Kami</a></li>
+        <li><a href="#contact" data-route="contact">Hubungi</a></li>
+      </ul>
+      <div class="nav-end">
+        <button class="cart-btn" id="cartBtn" aria-label="Buka Troli">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <a href="#order" class="btn-nav">Order Sekarang</a>
+        <button class="burger" id="burger" aria-label="Menu">
+          <svg class="burger-svg" width="28" height="20" viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect class="bl1" x="0" y="0"   width="28" height="3" rx="1.5" fill="white"/>
+            <rect class="bl2" x="0" y="8.5" width="28" height="3" rx="1.5" fill="white"/>
+            <rect class="bl3" x="0" y="17"  width="28" height="3" rx="1.5" fill="white"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mob-menu" id="mobMenu">
+    <ul>
+      <li><a href="#home" class="mob-lnk" data-route="home">Home</a></li>
+      <li class="mob-cat-hd">Produk</li>
+      <li><a href="#football" class="mob-lnk" data-route="football">⚽ Football</a></li>
+      <li><a href="#casual" class="mob-lnk" data-route="casual">👕 Casual</a></li>
+      <li><a href="#formal" class="mob-lnk" data-route="formal">👔 Formal</a></li>
+      <li><a href="#products" class="mob-lnk" data-route="products">Semua Koleksi</a></li>
+      <li><a href="#order" class="mob-lnk" data-route="order">Cara Order</a></li>
+      <li><a href="#about" class="mob-lnk" data-route="about">Tentang Kami</a></li>
+      <li><a href="#contact" class="mob-lnk" data-route="contact">Hubungi</a></li>
+      <li><a href="#order" class="mob-lnk mob-cta">Order Sekarang</a></li>
+    </ul>
+  </div>
+
+  <main>
+
+    <!-- ══════════ HOME ══════════ -->
+    <div id="page-home" class="route-page">
+
+      <section id="home" class="hero">
+        <canvas id="heroCanvas"></canvas>
+        <div class="hero-content">
+          <div class="hero-tag rv">✦ Premium Custom Sports Apparel Malaysia</div>
+          <h1 class="hero-h1">
+            <span class="hl accent rv dl1">MN</span>
+            <span class="hl rv dl2">SPORT</span>
+          </h1>
+          <p class="hero-sub rv dl4">Jersi sublimasi berkualiti premium. Football · Casual · Formal.</p>
+          <div class="hero-cta rv dl5">
+            <a href="#products" class="btn-primary">Lihat Koleksi</a>
+            <a href="#order" class="btn-ghost">Custom Order <span>→</span></a>
+          </div>
+          <div class="hero-stats rv dl6">
+            <div class="hs"><div class="hs-n"><span class="ctr" data-t="500">0</span>+</div><div class="hs-l">Designs</div></div>
+            <div class="hs-div"></div>
+            <div class="hs"><div class="hs-n"><span class="ctr" data-t="1000">0</span>+</div><div class="hs-l">Pelanggan Puas Hati</div></div>
+            <div class="hs-div"></div>
+            <div class="hs"><div class="hs-n"><span class="ctr" data-t="5">0</span>+</div><div class="hs-l">Tahun Pengalaman</div></div>
+          </div>
+        </div>
+        <div class="hero-scroll">
+          <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+          <span>Scroll</span>
+        </div>
+      </section>
+
+      <div class="marquee-band" aria-hidden="true">
+        <div class="mq-track">
+          <span>FOOTBALL JERSEY</span><span class="mx">✦</span>
+          <span>CASUAL WEAR</span><span class="mx">✦</span>
+          <span>FORMAL UNIFORM</span><span class="mx">✦</span>
+          <span>SUBLIMASI PENUH</span><span class="mx">✦</span>
+          <span>KUALITI PREMIUM</span><span class="mx">✦</span>
+          <span>FOOTBALL JERSEY</span><span class="mx">✦</span>
+          <span>CASUAL WEAR</span><span class="mx">✦</span>
+          <span>FORMAL UNIFORM</span><span class="mx">✦</span>
+          <span>SUBLIMASI PENUH</span><span class="mx">✦</span>
+          <span>KUALITI PREMIUM</span><span class="mx">✦</span>
+        </div>
+      </div>
+
+      <section class="s-cats">
+        <div class="container">
+          <div class="cats-grid">
+            <a href="#football" class="cat-card rv dl1">
+              <div class="cat-icon">⚽</div><h3>Football</h3><p>Jersey sukan, bola sepak & netball</p>
+              <span class="cat-count" id="catCountFootball">0 Design</span>
+            </a>
+            <a href="#casual" class="cat-card rv dl2">
+              <div class="cat-icon">👕</div><h3>Casual</h3><p>Polo & jersey santai untuk semua majlis</p>
+              <span class="cat-count" id="catCountCasual">0 Design</span>
+            </a>
+            <a href="#formal" class="cat-card rv dl3">
+              <div class="cat-icon">👔</div><h3>Formal</h3><p>Uniform korporat & jabatan rasmi</p>
+              <span class="cat-count" id="catCountFormal">0 Design</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="s-products s-featured">
+        <div class="container">
+          <div class="s-hd rv">
+            <span class="s-tag">Pilihan Terbaik</span>
+            <h2 class="s-title">KOLEKSI PILIHAN</h2>
+            <p class="s-sub">Design-design paling popular dari koleksi kami. Minimum order <span data-cfg="min-order">10</span> helai sahaja.</p>
+          </div>
+          <div class="products-grid" id="featuredGrid"></div>
+          <div class="view-all-wrap rv">
+            <a href="#products" class="btn-primary" id="viewAllBtn">Lihat Semua Koleksi →</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="s-banner">
+        <div class="banner-inner rv">
+          <span class="s-tag light">Teknologi Kami</span>
+          <h2>SUBLIMASI PENUH.<br>WARNA KEKAL.<br>KUALITI DIJAMIN.</h2>
+          <p>Teknologi percetakan sublimasi memastikan warna yang cerah, tahan lama, dan tidak luntur walaupun selepas banyak kali dibasuh.</p>
+          <a href="#order" class="btn-primary">Design Sekarang</a>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ══════════ FOOTBALL ══════════ -->
+    <div id="page-football" class="route-page cat-football" hidden>
+      <div class="page-hd">
+        <div class="container">
+          <span class="s-tag">⚽ Koleksi Football</span>
+          <h1>JERSEY BOLA<br>SEPAK PREMIUM</h1>
+          <p>Rekaan sublimasi penuh untuk pasukan yang ingin tampil profesional di padang. Nama, nombor & logo boleh dicetak terus.</p>
+        </div>
+      </div>
+      <div class="cat-highlights">
+        <div class="container">
+          <div class="cat-hl-grid">
+            <div class="cat-hl rv dl1"><div class="cat-hl-ico">⚡</div><div><h4>Fabric Dri-Fit</h4><p>Kain ringan & menyerap peluh — sesuai untuk intensiti permainan tinggi di padang.</p></div></div>
+            <div class="cat-hl rv dl2"><div class="cat-hl-ico">🎯</div><div><h4>Nama & Nombor Custom</h4><p>Cetak nama pemain, nombor baju, dan logo kelab terus pada kain via sublimasi penuh.</p></div></div>
+            <div class="cat-hl rv dl3"><div class="cat-hl-ico">🏆</div><div><h4>Piawai Liga & Futsal</h4><p>Rekaan mengikut spesifikasi liga tempatan. Sesuai untuk pertandingan rasmi dan latihan.</p></div></div>
+          </div>
+        </div>
+      </div>
+      <section class="s-products">
+        <div class="container">
+          <div class="s-hd rv">
+            <span class="s-tag">Design Terkini</span>
+            <h2 class="s-title">KOLEKSI FOOTBALL</h2>
+            <p class="s-sub">Design eksklusif sublimasi penuh — setiap satu boleh dikustomisasi sepenuhnya untuk pasukan anda.</p>
+          </div>
+          <div class="products-grid" id="footballGrid"></div>
+          <div class="view-all-wrap rv" style="margin-top:3rem"><a href="#products" class="btn-ghost">Lihat Semua Koleksi →</a></div>
+        </div>
+      </section>
+      <section class="s-banner">
+        <div class="banner-inner rv">
+          <span class="s-tag light">Custom Jersey</span>
+          <h2>DESIGN JERSEY<br>PASUKAN ANDA.</h2>
+          <p>Tambah nama, nombor, dan logo pasukan. Siap dalam 7–14 hari bekerja. Minimum <span data-cfg="min-order">10</span> helai sahaja.</p>
+          <a href="#order" class="btn-primary">Custom Order Sekarang</a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════ CASUAL ══════════ -->
+    <div id="page-casual" class="route-page cat-casual" hidden>
+      <div class="page-hd">
+        <div class="container">
+          <span class="s-tag">👕 Koleksi Casual</span>
+          <h1>BAJU CASUAL<br>UNTUK SEMUA</h1>
+          <p>Polo & jersey santai dengan rekaan sublimasi eksklusif. Sesuai untuk team building, program komuniti, dan majlis tidak rasmi.</p>
+        </div>
+      </div>
+      <div class="cat-highlights">
+        <div class="container">
+          <div class="cat-hl-grid">
+            <div class="cat-hl rv dl1"><div class="cat-hl-ico">🎨</div><div><h4>Warna Bebas</h4><p>Pilih mana-mana kombinasi warna — sublimasi penuh tanpa had warna tambahan.</p></div></div>
+            <div class="cat-hl rv dl2"><div class="cat-hl-ico">👥</div><div><h4>Sesuai Berkumpulan</h4><p>Ideal untuk team building, family day, program jabatan, dan seragam komuniti.</p></div></div>
+            <div class="cat-hl rv dl3"><div class="cat-hl-ico">✨</div><div><h4>Polo & Round Neck</h4><p>Tersedia dalam pilihan kolar polo dan round neck mengikut citarasa anda.</p></div></div>
+          </div>
+        </div>
+      </div>
+      <section class="s-products">
+        <div class="container">
+          <div class="s-hd rv">
+            <span class="s-tag">Design Terkini</span>
+            <h2 class="s-title">KOLEKSI CASUAL</h2>
+            <p class="s-sub">Design casual eksklusif sublimasi penuh — santai tapi tetap bergaya untuk setiap majlis.</p>
+          </div>
+          <div class="products-grid" id="casualGrid"></div>
+          <div class="view-all-wrap rv" style="margin-top:3rem"><a href="#products" class="btn-ghost">Lihat Semua Koleksi →</a></div>
+        </div>
+      </section>
+      <section class="s-banner">
+        <div class="banner-inner rv">
+          <span class="s-tag light">Custom Casual</span>
+          <h2>DESIGN BAJU<br>TEAM ANDA.</h2>
+          <p>Tambah nama ahli, logo organisasi, dan warna pilihan sendiri. Minimum <span data-cfg="min-order">10</span> helai sahaja.</p>
+          <a href="#order" class="btn-primary">Custom Order Sekarang</a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════ FORMAL ══════════ -->
+    <div id="page-formal" class="route-page cat-formal" hidden>
+      <div class="page-hd">
+        <div class="container">
+          <span class="s-tag">👔 Koleksi Formal</span>
+          <h1>UNIFORM KORPORAT<br>PROFESIONAL</h1>
+          <p>Seragam rasmi sublimasi premium untuk syarikat, jabatan kerajaan, dan badan korporat. Tonjolkan imej organisasi anda.</p>
+        </div>
+      </div>
+      <div class="cat-highlights">
+        <div class="container">
+          <div class="cat-hl-grid">
+            <div class="cat-hl rv dl1"><div class="cat-hl-ico">🏢</div><div><h4>Imej Korporat</h4><p>Rekaan formal yang menonjolkan identiti dan profesionalisme organisasi anda.</p></div></div>
+            <div class="cat-hl rv dl2"><div class="cat-hl-ico">📛</div><div><h4>Logo & Nama Syarikat</h4><p>Logo syarikat, nama jabatan, dan nama pekerja boleh dicetak terus dengan kualiti tinggi.</p></div></div>
+            <div class="cat-hl rv dl3"><div class="cat-hl-ico">🎖️</div><div><h4>Piawai Korporat</h4><p>Rekaan mengikut dress code korporat — sesuai untuk majlis rasmi, persidangan & pejabat.</p></div></div>
+          </div>
+        </div>
+      </div>
+      <section class="s-products">
+        <div class="container">
+          <div class="s-hd rv">
+            <span class="s-tag">Design Terkini</span>
+            <h2 class="s-title">KOLEKSI FORMAL</h2>
+            <p class="s-sub">Design korporat eksklusif sublimasi penuh — imej profesional untuk setiap seragam rasmi organisasi.</p>
+          </div>
+          <div class="products-grid" id="formalGrid"></div>
+          <div class="view-all-wrap rv" style="margin-top:3rem"><a href="#products" class="btn-ghost">Lihat Semua Koleksi →</a></div>
+        </div>
+      </section>
+      <section class="s-banner">
+        <div class="banner-inner rv">
+          <span class="s-tag light">Uniform Korporat</span>
+          <h2>SERAGAMKAN<br>ORGANISASI ANDA.</h2>
+          <p>Uniform eksklusif dengan logo & nama syarikat. Sesuai untuk semua saiz organisasi. Minimum <span data-cfg="min-order">10</span> helai.</p>
+          <a href="#order" class="btn-primary">Custom Order Sekarang</a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════ PRODUCTS (all) ══════════ -->
+    <div id="page-products" class="route-page" hidden>
+      <div class="page-hd">
+        <div class="container">
+          <span class="s-tag">Koleksi Kami</span>
+          <h1>SEMUA KOLEKSI</h1>
+          <p><span id="totalProdCount">10</span> design premium sublimasi — Football, Casual & Formal. Setiap design boleh dikustomisasi sepenuhnya.</p>
+        </div>
+      </div>
+      <section class="s-products">
+        <div class="container">
+          <div class="filter-row rv">
+            <button class="f-btn active" data-filter="all">Semua</button>
+            <button class="f-btn" data-filter="football">⚽ Football</button>
+            <button class="f-btn" data-filter="casual">👕 Casual</button>
+            <button class="f-btn" data-filter="formal">👔 Formal</button>
+          </div>
+          <div class="products-grid" id="allProductsGrid"></div>
+        </div>
+      </section>
+      <section class="s-banner">
+        <div class="banner-inner rv">
+          <span class="s-tag light">Tak Jumpa Design?</span>
+          <h2>BUAT DESIGN<br>SENDIRI.</h2>
+          <p>Hantar rekaan anda sendiri atau bincang dengan kami untuk design eksklusif pasukan anda.</p>
+          <a href="#order" class="btn-primary">Custom Order Sekarang</a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════ ORDER ══════════ -->
+    <div id="page-order" class="route-page" hidden>
+      <div class="page-hd">
+        <div class="container">
+          <span class="s-tag">Mudah &amp; Pantas</span>
+          <h1>CARA ORDER</h1>
+          <p>4 langkah mudah untuk dapatkan jersi impian pasukan anda dalam masa 7–14 hari bekerja.</p>
+        </div>
+      </div>
+
+      <section id="process" class="s-process">
+        <div class="container">
+          <div class="steps-grid">
+            <div class="step rv dl1">
+              <div class="step-num">01</div>
+              <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M24 14v10l6 6"/></svg></div>
+              <h3>Pilih Design</h3>
+              <p>Pilih dari <a href="#products" style="color:var(--red)">koleksi kami</a> atau bawa rekaan sendiri untuk disuaikan mengikut cita rasa anda.</p>
+            </div>
+            <div class="step rv dl2">
+              <div class="step-num">02</div>
+              <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M32 4H10a4 4 0 00-4 4v32a4 4 0 004 4h28a4 4 0 004-4V16L32 4z"/><path d="M32 4v12h12M20 26h8M20 32h8M16 26h1M16 32h1"/></svg></div>
+              <h3>Hantar Butiran</h3>
+              <p>Berikan senarai nama, saiz, nombor, dan logo pasukan kepada kami melalui WhatsApp atau borang di bawah.</p>
+            </div>
+            <div class="step rv dl3">
+              <div class="step-num">03</div>
+              <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="8" width="40" height="28" rx="3"/><path d="M4 18h40M16 36l-4 6M32 36l4 6M18 42h12"/></svg></div>
+              <h3>Semak &amp; Bayar</h3>
+              <p>Kami hantar mockup untuk kelulusan. Bayaran deposit 50% sebelum pengeluaran dimulakan.</p>
+            </div>
+            <div class="step rv dl4">
+              <div class="step-num">04</div>
+              <div class="step-icon"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 24h32M28 12l12 12-12 12"/></svg></div>
+              <h3>Terima Jersi</h3>
+              <p>Jersi siap dalam 7–14 hari bekerja dan dihantar terus ke pintu rumah anda seluruh Malaysia.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="custom-order" class="s-order">
+        <div class="container">
+          <div class="order-grid">
+            <div class="order-info rv-left">
+              <span class="s-tag">Buat Tempahan</span>
+              <h2>CUSTOM<br>ORDER</h2>
+              <p>Isi borang di sebelah dan kami akan menghubungi anda dalam masa 24 jam untuk berbincang lanjut.</p>
+              <a href="#" data-cfg="wa-url" class="btn-wa" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp Kami
+              </a>
+              <ul class="order-perks">
+                <li>✓ Mockup design percuma</li>
+                <li>✓ Minimum <span data-cfg="min-order">10</span> helai sahaja</li>
+                <li>✓ Siap dalam 7–14 hari bekerja</li>
+                <li>✓ Hantar seluruh Malaysia</li>
+                <li>✓ Boleh tambah nama &amp; logo</li>
+              </ul>
+            </div>
+
+            <div class="order-form-wrap rv-right">
+              <form id="orderForm" class="order-form" novalidate>
+                <div class="f-row">
+                  <div class="f-grp"><label>Nama Anda *</label><input type="text" name="nama" placeholder="Contoh: Ahmad Bin Ali" required></div>
+                  <div class="f-grp"><label>No. Telefon *</label><input type="tel" name="telefon" placeholder="+60 12-xxx xxxx" required></div>
+                </div>
+                <div class="f-grp"><label>Nama Pasukan / Organisasi</label><input type="text" name="pasukan" placeholder="Contoh: KKSB FC, Syarikat XYZ Sdn Bhd"></div>
+                <div class="f-row">
+                  <div class="f-grp">
+                    <label>Kategori</label>
+                    <select name="kategori">
+                      <option value="">-- Pilih Kategori --</option>
+                      <option value="Football">⚽ Football</option>
+                      <option value="Casual">👕 Casual</option>
+                      <option value="Formal">👔 Formal</option>
+                    </select>
+                  </div>
+                  <div class="f-grp">
+                    <label>Jenis Baju</label>
+                    <select name="jenis">
+                      <option value="">-- Pilih Jenis --</option>
+                      <option value="Jersey (Round/V-Neck)">Jersey (Round/V-Neck)</option>
+                      <option value="Polo Collar">Polo Collar</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="f-grp">
+                  <label>Design Pilihan</label>
+                  <select name="design">
+                    <option value="">-- Pilih Design --</option>
+                    <optgroup label="⚽ Football">
+                      <option>Design #093 – Brush Art Jersey</option>
+                      <option>Design #106 N9 – Football Strike</option>
+                      <option>Design #108 – Ocean Splash</option>
+                      <option>Design HTJS – Teal Marble</option>
+                    </optgroup>
+                    <optgroup label="👕 Casual">
+                      <option>Design #000 – Classic Polo Pro</option>
+                      <option>Design #109 – Geometric Fade</option>
+                      <option>Design SGMC3 – Speed Racer</option>
+                    </optgroup>
+                    <optgroup label="👔 Formal">
+                      <option>Design #103 – Corporate Marine</option>
+                      <option>Design #106 – Royal Baroque</option>
+                      <option>Design IK – Heritage Polo</option>
+                    </optgroup>
+                    <option value="Rekaan Sendiri (Custom)">Rekaan Sendiri (Custom)</option>
+                  </select>
+                </div>
+                <div class="f-grp">
+                  <label>Anggaran Kuantiti <span class="lbl-note">(Minimum <span data-cfg="min-order">10</span> helai)</span></label>
+                  <div class="qty-grid">
+                    <div class="qty-sz"><span>XS</span><input type="number" name="xs"   min="0" value="0" class="qin"></div>
+                    <div class="qty-sz"><span>S</span> <input type="number" name="s"    min="0" value="0" class="qin"></div>
+                    <div class="qty-sz"><span>M</span> <input type="number" name="m"    min="0" value="0" class="qin"></div>
+                    <div class="qty-sz"><span>L</span> <input type="number" name="l"    min="0" value="0" class="qin"></div>
+                    <div class="qty-sz"><span>XL</span><input type="number" name="xl"   min="0" value="0" class="qin"></div>
+                    <div class="qty-sz"><span>XXL</span><input type="number" name="xxl" min="0" value="0" class="qin"></div>
+                    <div class="qty-sz"><span>3XL</span><input type="number" name="xxxl" min="0" value="0" class="qin"></div>
+                  </div>
+                  <div class="qty-total">Jumlah: <strong id="qtyTotal">0</strong> helai</div>
+                </div>
+                <div class="f-grp">
+                  <label>Ada nama / nombor pada baju?</label>
+                  <div class="radio-row">
+                    <label class="rl"><input type="radio" name="customName" value="ya"> Ya</label>
+                    <label class="rl"><input type="radio" name="customName" value="tidak" checked> Tidak</label>
+                  </div>
+                </div>
+                <div class="f-grp"><label>Catatan Tambahan</label><textarea name="catatan" rows="3" placeholder="Contoh: tukar warna kepada biru gelap, tambah logo syarikat, dsb."></textarea></div>
+                <button type="submit" class="btn-submit">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  Hantar via WhatsApp
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════ ABOUT ══════════ -->
+    <div id="page-about" class="route-page" hidden>
+      <div class="page-hd">
+        <div class="container">
+          <span class="s-tag">Kenali Kami</span>
+          <h1>TENTANG KAMI</h1>
+          <p>Pengeluar jersi sublimasi premium Malaysia — lebih 5 tahun, lebih 1,000 pelanggan puas hati.</p>
+        </div>
+      </div>
+
+      <section id="about" class="s-about">
+        <div class="container">
+          <div class="about-grid">
+            <div class="about-imgs rv-left">
+              <div class="ai-main"><img src="baju/ik.jpg" alt="MN Sports Jersey" loading="lazy"></div>
+              <div class="ai-sub"><img src="baju/106.jpg" alt="MN Sports Jersey" loading="lazy"><div class="ai-badge">Est. 2020</div></div>
+            </div>
+            <div class="about-text rv-right">
+              <span class="s-tag">Tentang Kami</span>
+              <h2>KAMI ADALAH<br>MN SPORTS</h2>
+              <p>MN Sports adalah pengeluar jersi sublimasi premium yang berpusat di Malaysia. Kami pakar dalam menghasilkan jersi berkualiti tinggi dengan rekaan eksklusif untuk setiap pelanggan.</p>
+              <p>Dengan pengalaman lebih 5 tahun, kami telah mempercayai lebih 1,000 pelanggan — pasukan sukan, badan korporat, jabatan kerajaan, dan komuniti di seluruh Malaysia.</p>
+              <p>Koleksi kami merangkumi tiga kategori: <strong>Football</strong>, <strong>Casual</strong>, dan <strong>Formal</strong>.</p>
+              <div class="about-feats">
+                <div class="af"><div class="af-ico">🎨</div><div><strong>Rekaan Eksklusif</strong><span>Design unik disesuaikan untuk anda</span></div></div>
+                <div class="af"><div class="af-ico">⚡</div><div><strong>Proses Pantas</strong><span>Siap dalam 7–14 hari bekerja</span></div></div>
+                <div class="af"><div class="af-ico">🏆</div><div><strong>Kualiti Terjamin</strong><span>Sublimasi penuh, warna tidak luntur</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" class="s-testi">
+        <div class="container">
+          <div class="s-hd rv"><span class="s-tag">Ulasan Pelanggan</span><h2 class="s-title">APA KATA MEREKA?</h2></div>
+          <div class="testi-wrap">
+            <div class="testi-track" id="testiTrack"></div>
+            <div class="testi-nav"><button class="tn-btn" id="tPrev">←</button><div class="testi-dots" id="testiDots"></div><button class="tn-btn" id="tNext">→</button></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="s-banner">
+        <div class="banner-inner rv">
+          <span class="s-tag light">Jom Bergabung</span>
+          <h2>SERTAI 1,000+<br>PELANGGAN KAMI.</h2>
+          <p>Dapatkan jersi impian pasukan anda hari ini. Minimum <span data-cfg="min-order">10</span> helai sahaja.</p>
+          <a href="#order" class="btn-primary">Order Sekarang</a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══════════ CONTACT ══════════ -->
+    <div id="page-contact" class="route-page" hidden>
+      <div class="page-hd">
+        <div class="container">
+          <span class="s-tag">Kami Sedia Membantu</span>
+          <h1>HUBUNGI KAMI</h1>
+          <p>Hubungi melalui mana-mana saluran di bawah. Kami akan membalas dalam masa 1 jam.</p>
+        </div>
+      </div>
+
+      <section id="contact" class="s-contact">
+        <div class="container">
+          <div class="contact-cards">
+            <div class="cc rv dl1">
+              <div class="cc-ico wa"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+              <h3>WhatsApp</h3><p>Chat terus untuk maklumbalas segera.</p>
+              <a href="#" data-cfg="wa-url" target="_blank" rel="noopener" class="cc-lnk" data-cfg-text="wa-display">+60 12-345 6789</a>
+            </div>
+            <div class="cc rv dl2">
+              <div class="cc-ico em"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <h3>Email</h3><p>Hantar pertanyaan atau design file.</p>
+              <a href="#" data-cfg="mailto" class="cc-lnk" data-cfg-text="email">info@mnsports.my</a>
+            </div>
+            <div class="cc rv dl3">
+              <div class="cc-ico ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+              <h3>Instagram</h3><p>Ikuti kami untuk design & update terkini.</p>
+              <a href="#" data-cfg="ig-url" target="_blank" rel="noopener" class="cc-lnk">@mnsports</a>
+            </div>
+          </div>
+
+          <div class="s-hd rv" style="margin-top:5rem"><span class="s-tag">FAQ</span><h2 class="s-title">SOALAN LAZIM</h2></div>
+          <div class="faq-grid rv">
+            <div class="faq-item"><h4>Berapa minimum order?</h4><p>Minimum <span data-cfg="min-order">10</span> helai bagi setiap order. Tiada had maksimum.</p></div>
+            <div class="faq-item"><h4>Berapa lama siap?</h4><p>7–14 hari bekerja selepas deposit diterima dan mockup diluluskan.</p></div>
+            <div class="faq-item"><h4>Boleh buat design sendiri?</h4><p>Ya! Hantar rekaan anda atau bincang dengan kami untuk design eksklusif.</p></div>
+            <div class="faq-item"><h4>Penghantaran ke seluruh Malaysia?</h4><p>Ya, kami hantar ke seluruh Semenanjung, Sabah & Sarawak.</p></div>
+            <div class="faq-item"><h4>Boleh tambah nama & nombor?</h4><p>Boleh! Sublimasi penuh bermaksud nama, nombor dan logo boleh dicetak terus pada baju.</p></div>
+            <div class="faq-item"><h4>Berapa deposit yang perlu dibayar?</h4><p>Deposit 50% diperlukan sebelum proses pengeluaran bermula. Baki 50% sebelum penghantaran.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="s-banner">
+        <div class="banner-inner rv">
+          <span class="s-tag light">Masih Ada Soalan?</span>
+          <h2>CHAT DENGAN<br>KAMI SEKARANG.</h2>
+          <p>Pasukan kami sedia menjawab sebarang pertanyaan anda melalui WhatsApp.</p>
+          <a href="#" data-cfg="wa-url" class="btn-primary" target="_blank" rel="noopener">WhatsApp Sekarang</a>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="fg-brand">
+          <div class="footer-logo-wrap">
+            <img src="logo/logo.jpg" alt="MN Sports" class="logo-img">
+            <div class="nav-logo fg-logo">MN<span>sport</span></div>
+          </div>
+          <p>Premium Custom Sports Jersey Malaysia. Football · Casual · Formal — jersi sublimasi berkualiti untuk semua.</p>
+          <div class="socials">
+            <a href="#" data-cfg="fb-url" aria-label="Facebook" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="20"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+            <a href="#" data-cfg="ig-url" aria-label="Instagram" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="#" data-cfg="tt-url" aria-label="TikTok" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="20"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.06a8.23 8.23 0 004.84 1.55V7.17a4.85 4.85 0 01-1.07-.48z"/></svg></a>
+            <a href="#" data-cfg="wa-url" aria-label="WhatsApp" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+          </div>
+        </div>
+        <div class="fg-col">
+          <h4>Produk</h4>
+          <ul>
+            <li><a href="#football">Jersey Football</a></li>
+            <li><a href="#casual">Jersey Casual</a></li>
+            <li><a href="#formal">Jersey Formal</a></li>
+            <li><a href="#order">Custom Order</a></li>
+          </ul>
+        </div>
+        <div class="fg-col">
+          <h4>Syarikat</h4>
+          <ul>
+            <li><a href="#about">Tentang Kami</a></li>
+            <li><a href="#order">Cara Order</a></li>
+            <li><a href="#about">Ulasan Pelanggan</a></li>
+            <li><a href="#contact">Hubungi Kami</a></li>
+          </ul>
+        </div>
+        <div class="fg-col">
+          <h4>Hubungi</h4>
+          <ul>
+            <li>📱 <span data-cfg-text="wa-display">+60 12-345 6789</span></li>
+            <li>📧 <span data-cfg-text="email">info@mnsports.my</span></li>
+            <li>📍 Malaysia</li>
+            <li>⏰ Isnin–Sabtu, 9am–6pm</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-btm">
+        <p>© <span id="curYear">2026</span> MN Sports. Hak Cipta Terpelihara.</p>
+        <p>Dibina dengan ❤️ untuk pasukan terbaik Malaysia.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cs-hd"><h3>Troli Saya</h3><button class="cs-close" id="csClose">✕</button></div>
+    <div class="cs-body" id="csBody">
+      <div class="cs-empty" id="csEmpty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="56"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <p>Troli anda kosong</p>
+        <small>Tambah design yang anda minati</small>
+      </div>
+      <div id="csItems"></div>
+    </div>
+    <div class="cs-ft" id="csFoot">
+      <div class="cs-sum"><span>Anggaran Harga:</span><strong id="csTotal">RM 0</strong></div>
+      <p class="cs-note">*Harga muktamad bergantung pada kuantiti dan design akhir</p>
+      <button class="btn-checkout" id="checkoutBtn">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Order via WhatsApp
+      </button>
+    </div>
+  </aside>
+
+  <!-- PRODUCT MODAL -->
+  <div class="modal-ov" id="modalOv"></div>
+  <div class="prod-modal" id="prodModal">
+    <button class="pm-close" id="pmClose">✕</button>
+    <div class="pm-inner" id="pmInner"></div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="#" data-cfg="wa-url" class="float-wa" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <div class="float-wa-ring"></div>
+  </a>
+
+  <!-- SCROLL TOP -->
+  <button class="scroll-top" id="scrollTop" aria-label="Kembali ke atas">↑</button>
+
+  <script src="main.js"></script>
+</body>
+</html>
